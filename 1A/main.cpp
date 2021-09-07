@@ -1,7 +1,7 @@
-#include <algorithm>
-#include <iostream>
-#include <iomanip>
 #include <math.h>
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
 using std::cin;
 using std::cout;
 const int s = 10;
@@ -27,6 +27,7 @@ int main() {
                       ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) -
                   2 * 2 * (y2 * y2 - y1 * y1) *
                       (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
+  //Квадратное уравнение
   answer1 =
       ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / (2 * ((y2 * y2 - y1 * y1)));
   answer2 =
