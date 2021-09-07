@@ -12,15 +12,14 @@ double Kvadard(double x1, double y1, double x2, double y2) {
                   2 * 2 * (y2 * y2 - y1 * y1) *
                       (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
   //Квадратное уравнение
-  answer1 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) /
-      (2 * ((y2 * y2 - y1 * y1)));
-  answer2 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) /
-      (2 * ((y2 * y2 - y1 * y1)));
+  answer1 =
+      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / (2 * ((y2 * y2 - y1 * y1)));
+  answer2 =
+      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) / (2 * ((y2 * y2 - y1 * y1)));
   double ans;
   if (answer2 > x1 && answer2 < x2) {
     ans = answer2;
-  }
-  else {
+  } else {
     ans = answer1;
   }
   return ans;
