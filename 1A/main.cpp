@@ -23,16 +23,19 @@ int main() {
   std::cout << std::setprecision(s);
   double answer1;
   double answer2;
-  double d = sqrt( ( (2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) ) * ( (2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) ) 
-  - 2 * 2 * (y2 * y2 - y1 * y1) * (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1) );
-  answer1 = ( (2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / ( 2 * ( (y2 * y2 - y1 * y1) ) );
-  answer2 = ( (2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) / ( 2 * ( (y2 * y2 - y1 * y1) ) );
+  double d = sqrt(((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) *
+                      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) -
+                  2 * 2 * (y2 * y2 - y1 * y1) *
+                      (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
+  answer1 =
+      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / (2 * ((y2 * y2 - y1 * y1)));
+  answer2 =
+      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) / (2 * ((y2 * y2 - y1 * y1)));
   //Сравнивание минимума на возможном отрезке
-  if ( answer2 > x1 && answer2 < x2 ) {
+  if (answer2 > x1 && answer2 < x2) {
     cout << answer2 << '\n';
   }
-  else
-  {
+  else {
     cout << answer2 << '\n';
   }
 }
