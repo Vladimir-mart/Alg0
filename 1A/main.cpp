@@ -4,8 +4,8 @@
 #include <iostream>
 using std::cin;
 using std::cout;
-const int s = 10;
 int main() {
+  const int s = 10;
   double x1;
   double x2;
   double y1;
