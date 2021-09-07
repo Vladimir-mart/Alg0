@@ -4,9 +4,26 @@
 #include <iostream>
 using std::cin;
 using std::cout;
-
+double Kvadard(double x1, double x2, double y1, double y2) {
+  double answer1;
+  double answer2;
+  double d = sqrt(((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) *
+                      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) -
+                  2 * 2 * (y2 * y2 - y1 * y1) *
+                      (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
+  //Квадратное уравнение
+  answer1 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) /
+      (2 * ((y2 * y2 - y1 * y1)));
+  answer2 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) /
+      (2 * ((y2 * y2 - y1 * y1)));
+  if (answer2 > x1 && answer2 < x2) {
+   return answer2;
+  }
+  else {
+    return answer2;
+  }
+}
 int main() {
-
   const int s = 10;
   double x1;
   double x2;
@@ -23,22 +40,6 @@ int main() {
   }
   std::cout << std::fixed << std::showpoint;
   std::cout << std::setprecision(s);
-  double answer1;
-  double answer2;
-  double d = sqrt(((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) *
-                      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) -
-                  2 * 2 * (y2 * y2 - y1 * y1) *
-                      (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
-  //Квадратное уравнение
-  answer1 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) /
-  (2 * ((y2 * y2 - y1 * y1)));
-  answer2 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) /
-  (2 * ((y2 * y2 - y1 * y1)));
-  if (answer2 > x1 && answer2 < x2) {
-    cout << answer2 << '\n';
-  }
-  else {
-    cout << answer2 << '\n';
-  }
+  cout << Kvadard(x1, y1, x2, y2);
   return 0;
 }
