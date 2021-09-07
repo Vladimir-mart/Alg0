@@ -5,10 +5,11 @@ using std::cin;
 using std::cout;
 double Kvadard(double x1, double y1, double x2, double y2) {
   if (x1 == x2 && y1 == y2) {
-      return x1;
+    return x1;
   }
   if (y2 == y1) {
-    return (x2 * x2 * y1 * y1 - x1 * x1 * y2 * y2) / (2 * x2 * y1 * y1 - 2 * x1 * y2 * y2);
+    return (x2 * x2 * y1 * y1 - x1 * x1 * y2 * y2) /
+           (2 * x2 * y1 * y1 - 2 * x1 * y2 * y2);
   }
   double answer1;
   double answer2;
