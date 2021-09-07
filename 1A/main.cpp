@@ -4,7 +4,9 @@
 #include <iostream>
 using std::cin;
 using std::cout;
+
 int main() {
+
   const int s = 10;
   double x1;
   double x2;
@@ -39,4 +41,5 @@ int main() {
   else {
     cout << answer2 << '\n';
   }
+  return 0;
 }
