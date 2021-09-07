@@ -30,10 +30,10 @@ int main() {
                   2 * 2 * (y2 * y2 - y1 * y1) *
                       (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
   //Квадратное уравнение
-  answer1 =
-      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / (2 * ((y2 * y2 - y1 * y1)));
-  answer2 =
-      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) / (2 * ((y2 * y2 - y1 * y1)));
+  answer1 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) /
+   (2 * ((y2 * y2 - y1 * y1)));
+  answer2 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) /
+   (2 * ((y2 * y2 - y1 * y1)));
   if (answer2 > x1 && answer2 < x2) {
     cout << answer2 << '\n';
   }
