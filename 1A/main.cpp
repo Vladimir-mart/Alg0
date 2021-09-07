@@ -4,7 +4,7 @@
 #include <iostream>
 using std::cin;
 using std::cout;
-double Kvadard(double x1, double x2, double y1, double y2) {
+double Kvadard(double x1, double y1, double x2, double y2) {
   double answer1;
   double answer2;
   double d = sqrt(((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) *
@@ -16,12 +16,14 @@ double Kvadard(double x1, double x2, double y1, double y2) {
       (2 * ((y2 * y2 - y1 * y1)));
   answer2 = ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) /
       (2 * ((y2 * y2 - y1 * y1)));
+  double ans;
   if (answer2 > x1 && answer2 < x2) {
-   return answer2;
+    ans = answer2;
   }
   else {
-    return answer2;
+    ans = answer1;
   }
+  return ans;
 }
 int main() {
   const int s = 10;
