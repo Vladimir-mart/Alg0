@@ -30,7 +30,7 @@ double MinWay(double x1, double y1, double x2, double y2) {
   return ans;
 }
 int main() {
-  const int s = 10;
+  const int rounding = 10;
   double x1;
   double x2;
   double y1;
@@ -45,7 +45,7 @@ int main() {
     y2 = t2;
   }
   std::cout << std::fixed << std::showpoint;
-  std::cout << std::setprecision(s);
+  std::cout << std::setprecision(rounding);
   cout << MinWay(x1, y1, x2, y2) << '\n';
   return 0;
 }
