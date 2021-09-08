@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 #include <iostream>
 using std::cin;
 using std::cout;
