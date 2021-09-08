@@ -19,7 +19,8 @@ long long NOK(long long  n1, long long n2) {
   return ((n1 * n2) / NOD(n1, n2));
 }
 int main() {
-  long long n1, n2;
+  long long n1;
+  long long n2;
   cin >> n1 >> n2;
   cout << NOK(n1, n2);
   return 0;
