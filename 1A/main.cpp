@@ -3,7 +3,7 @@
 #include <iostream>
 using std::cin;
 using std::cout;
-double Kvadard(double x1, double y1, double x2, double y2) {
+double MinWay(double x1, double y1, double x2, double y2) {
   if (x1 == x2 && y1 == y2) {
     return x1;
   }
@@ -17,7 +17,6 @@ double Kvadard(double x1, double y1, double x2, double y2) {
                       ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) -
                   2 * 2 * (y2 * y2 - y1 * y1) *
                       (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
-  //Квадратное уравнение
   answer1 =
       ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / (2 * ((y2 * y2 - y1 * y1)));
   answer2 =
@@ -47,6 +46,6 @@ int main() {
   }
   std::cout << std::fixed << std::showpoint;
   std::cout << std::setprecision(s);
-  cout << Kvadard(x1, y1, x2, y2) << '\n';
+  cout << MinWay(x1, y1, x2, y2) << '\n';
   return 0;
 }
