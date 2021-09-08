@@ -6,16 +6,16 @@ int main() {
     int iterator;
     cin >> iterator;
     while(iterator != 0) {
-        int N;
-        cin >> N;
-        for(int divider = 2; divider <= sqrt(N); divider++) {
-            while(N % divider == 0) {
-                N /= divider;
+        int n;
+        cin >> n;
+        for(int divider = 2; divider <= sqrt(n); divider++) {
+            while(n % divider == 0) {
+                n /= divider;
                 cout << divider << " ";
             }
         }
-        if(N != 1) {
-            cout << N <<" ";
+        if(n != 1) {
+            cout << n <<" ";
         }
         cout << '\n';
         iterator--;
