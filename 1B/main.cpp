@@ -8,16 +8,14 @@ long long NOD(long long n1, long long n2) {
     return n1;
   }
   if (d < 0) {
-    d = - d;
+    d = -d;
     diva = NOD(n1, d);
   } else {
     diva = NOD(n2, d);
   }
   return diva;
 }
-long long NOK(long long  n1, long long n2) {
-  return ((n1 * n2) / NOD(n1, n2));
-}
+long long NOK(long long n1, long long n2) { return ((n1 * n2) / NOD(n1, n2)); }
 int main() {
   long long n1;
   long long n2;
