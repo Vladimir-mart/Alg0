@@ -1,9 +1,16 @@
 #include <cmath>
 #include <iomanip>
 #include <iostream>
+
 using std::cin;
 using std::cout;
+
 double MinWay(double x1, double y1, double x2, double y2) {
+  //ax^2 + bx + c = 0
+  double a = (y2 * y2 - y1 * y1);
+  double b = (2 * x1 * y2 * y2 - 2 * x2 * y1 * y1);
+  double c = (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1);
+  double d = sqrt(b * b - 2 * 2 * a * c);
   if (x1 == x2 && y1 == y2) {
     return x1;
   }
@@ -11,23 +18,15 @@ double MinWay(double x1, double y1, double x2, double y2) {
     return (x2 * x2 * y1 * y1 - x1 * x1 * y2 * y2) /
            (2 * x2 * y1 * y1 - 2 * x1 * y2 * y2);
   }
-  double answer1;
-  double answer2;
-  double d = sqrt(((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) *
-                      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1)) -
-                  2 * 2 * (y2 * y2 - y1 * y1) *
-                      (x1 * x1 * y2 * y2 - x2 * x2 * y1 * y1));
-  answer1 =
-      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) + d) / (2 * ((y2 * y2 - y1 * y1)));
-  answer2 =
-      ((2 * x1 * y2 * y2 - 2 * x2 * y1 * y1) - d) / (2 * ((y2 * y2 - y1 * y1)));
-  double ans;
-  if (answer2 > x1 && answer2 < x2) {
-    ans = answer2;
+  double the_answer_to_the_quadratic_equation1 = ((b + d) / (2 * a));
+  double the_answer_to_the_quadratic_equation2 = ((b - d) / (2 * a));
+  double answer;
+  if (the_answer_to_the_quadratic_equation2 > x1 && the_answer_to_the_quadratic_equation2 < x2) {
+    answer = the_answer_to_the_quadratic_equation2;
   } else {
-    ans = answer1;
+    answer = the_answer_to_the_quadratic_equation1;
   }
-  return ans;
+  return answer;
 }
 int main() {
   const int rounding = 10;
@@ -37,15 +36,11 @@ int main() {
   double y2;
   cin >> x1 >> y1 >> x2 >> y2;
   if (x1 > x2) {
-    double t1 = x1;
-    double t2 = y1;
-    x1 = x2;
-    y1 = y2;
-    x2 = t1;
-    y2 = t2;
+    std::swap(x1,x2);
+    std::swap(y1,y2);
   }
-  std::cout << std::fixed << std::showpoint;
-  std::cout << std::setprecision(rounding);
+  cout << std::fixed << std::showpoint;
+  cout << std::setprecision(rounding);
   cout << MinWay(x1, y1, x2, y2) << '\n';
   return 0;
 }
