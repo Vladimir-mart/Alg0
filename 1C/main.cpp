@@ -4,7 +4,7 @@
 using std::cin;
 using std::cout;
 
-int checking_divisors(int n) {
+int Checking_divisors(int n) {
   for (int divider = 2; divider <= sqrt(n); divider++) {
     while (n % divider == 0) {
       n /= divider;
@@ -20,7 +20,7 @@ int main() {
   while (number_of_requests != 0) {
     int n;
     cin >> n;
-    n = checking_divisors(n);
+    n = Checking_divisors(n);
     if (n != 1) {
       cout << n << " ";
     }
