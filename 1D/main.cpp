@@ -10,7 +10,7 @@ bool BinarySearch(int* begin, int* end, int target) {
   int distance;
   bool yes_or_no = false;
   while (1 == 1) {
-    distance = abs(begin - end) / 2; 
+    distance = abs(begin - end) / 2;
     if (*(begin + distance) < target) {
       begin += distance;
     } else {
@@ -24,7 +24,7 @@ bool BinarySearch(int* begin, int* end, int target) {
       }
       // в данном случае position играет роль, был ли сдвиг, или нет
      
-      if (*(end) == target && position == 1) { 
+      if (*(end) == target && position == 1) {
         yes_or_no = true;
       }
       return yes_or_no;
