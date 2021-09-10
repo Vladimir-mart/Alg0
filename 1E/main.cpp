@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 using namespace std;
-void Exponentiation(long double* special_ar) {
+void Exponentiation(long double* arr) {
   long long q;
   cin >> q;
   long double e = exp(1.0);
@@ -14,11 +14,11 @@ void Exponentiation(long double* special_ar) {
     cin >> arr_index_l >> arr_index_r;
     if (arr_index_l == 0) {
       cout << pow(exp(1.0),
-                  special_ar[arr_index_r] / (arr_index_r - arr_index_l + 1))
+                  arr[arr_index_r] / (arr_index_r - arr_index_l + 1))
            << '\n';
     } else {
       cout << pow(exp(1.0),
-                  (special_ar[arr_index_r] - special_ar[arr_index_l - 1]) /
+                  (arr[arr_index_r] - arr[arr_index_l - 1]) /
                       (arr_index_r - arr_index_l + 1))
            << '\n';
     }
