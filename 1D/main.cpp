@@ -24,14 +24,14 @@ bool BinarySearch(int* begin, int* end, int target)
     {
       if( * (begin) == target)
       {
-        return 1;
+        return true;
       }
       // в данном случае position играет роль, был ли сдвиг, или нет
       if( * (end) == target && position == 1)
       {
-        return 1;
+        return true;
       }
-      return 0;
+      return false;
     }
   }
 }
@@ -43,9 +43,9 @@ int main() {
   for(int i = 0; i < array_length; i++) {
     cin >> arr[i];
   }
-  int Q;
-  cin >> Q;
-  while(Q != 0) {
+  int q;
+  cin >> q;
+  while(q != 0) {
     int array_indexes_l;
     int array_indexes_r;
     int targ;
@@ -57,7 +57,7 @@ int main() {
       cout << "YES";
     }
     cout << '\n';
-    Q--;
+    q--;
   }
   delete [] arr;
 }
