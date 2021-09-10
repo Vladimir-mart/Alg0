@@ -32,6 +32,7 @@ bool BinarySearch(int* begin, int* end, int target) {
 
 int main() {
   int array_length;
+  bool yes_or_no;
   cin >> array_length;
   int *arr = new int[array_length];
   for(int i = 0; i < array_length; i++) {
@@ -40,12 +41,12 @@ int main() {
   int q;
   cin >> q;
   while(q != 0) {
-    int array_indexes_l;
-    int array_indexes_r;
+    int arr_index_l;
+    int arr_index_r;
     int targ;
-    cin >> array_indexes_l >> array_indexes_r >> targ;
-    if(BinarySearch((arr + array_indexes_l), 
-      (arr + array_indexes_r), targ) == false) {
+    cin >> arr_index_l >> arr_index_r >> targ;
+    yes_or_no = BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ);
+    if(yes_or_no == false) {
       cout << "NO";
     } else {
       cout << "YES";
