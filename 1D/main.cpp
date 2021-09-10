@@ -46,7 +46,7 @@ int main() {
     int targ;
     cin >> arr_index_l >> arr_index_r >> targ;
     yes_or_no = BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ);
-    if(yes_or_no == false) {
+    if(yes_or_no) {
       cout << "NO";
     } else {
       cout << "YES";
