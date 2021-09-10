@@ -2,20 +2,7 @@
 #include <iomanip>
 #include <iostream>
 using namespace std;
-
-int main() {
-  long long arr_length;
-  cin >> arr_length;
-  long double* arr = new long double[arr_length];
-  long double* special_arr = new long double[arr_length];
-  for (long long i = 0; i < arr_length; i++) {
-    cin >> arr[i];
-    if (i == 0) {
-      special_arr[0] = log(arr[0]);
-    } else {
-      special_arr[i] = special_arr[i - 1] + log(arr[i]);
-    }
-  }
+void Exponentiation(long double* arr, long double* special_arr) {
   long long q;
   cin >> q;
   long double e = exp(1.0);
@@ -36,6 +23,21 @@ int main() {
            << '\n';
     }
   }
+}
+int main() {
+  long long arr_length;
+  cin >> arr_length;
+  long double* arr = new long double[arr_length];
+  long double* special_arr = new long double[arr_length];
+  for (long long i = 0; i < arr_length; i++) {
+    cin >> arr[i];
+    if (i == 0) {
+      special_arr[0] = log(arr[0]);
+    } else {
+      special_arr[i] = special_arr[i - 1] + log(arr[i]);
+    }
+  }
+  Exponentiation(arr, special_arr);
   delete[] arr;
   delete[] special_arr;
 }
