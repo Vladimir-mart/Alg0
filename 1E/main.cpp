@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 using namespace std;
-void Exponentiation(long double* arr) {
+void Exponentiation(const long double* arr) {
   long long q;
   cin >> q;
   long double e = exp(1.0);
