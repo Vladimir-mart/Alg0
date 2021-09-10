@@ -10,7 +10,7 @@ bool BinarySearch(int* begin, int* end, int target) {
   int distance;
   bool yes_or_no = false;
   while (1 == 1) {
-    distance = abs(begin - end) / 2;
+    distance = abs(begin - end) / 2; 
     if (*(begin + distance) < target) {
       begin += distance;
     } else {
@@ -18,11 +18,13 @@ bool BinarySearch(int* begin, int* end, int target) {
       position = 1;
     }
     if (abs(begin - end) <= 1) {
+      
       if (*(begin) == target) {
         yes_or_no = true;
       }
       // в данном случае position играет роль, был ли сдвиг, или нет
-      if (*(end) == target && position == 1) {
+     
+      if (*(end) == target && position == 1) { 
         yes_or_no = true;
       }
       return yes_or_no;
@@ -33,10 +35,11 @@ bool BinarySearch(int* begin, int* end, int target) {
 int main() {
   int array_length;
   cin >> array_length;
-  int* arr = new int[array_length];
+  int* arr = new int[array_length + 1];
   for (int i = 0; i < array_length; i++) {
     cin >> arr[i];
   }
+  arr[array_length] = arr[0];
   int q;
   cin >> q;
   while (q != 0) {
@@ -44,9 +47,6 @@ int main() {
     int arr_index_r;
     int targ;
     cin >> arr_index_l >> arr_index_r >> targ;
-    if (arr_index_r >= array_length) {
-      arr_index_r = array_length - 1;
-    }
     if (BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ)) {
       cout << "YES";
     } else {
