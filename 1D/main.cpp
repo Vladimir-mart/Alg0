@@ -8,6 +8,7 @@ bool BinarySearch(int* begin, int* end, int target)
   // служит для понимание что сдвинуто левая сторона(она же не включительно)
   int position = 0;
   int distance;
+  bool yes_or_no = false;
   while(1 == 1)
   {
     distance = abs(begin - end) / 2;
@@ -24,14 +25,14 @@ bool BinarySearch(int* begin, int* end, int target)
     {
       if( * (begin) == target)
       {
-        return true;
+        yes_or_no = true;
       }
       // в данном случае position играет роль, был ли сдвиг, или нет
       if( * (end) == target && position == 1)
       {
-        return true;
+        yes_or_no =  true;
       }
-      return false;
+      return yes_or_no;
     }
   }
 }
@@ -51,7 +52,7 @@ int main() {
     int targ;
     cin >> array_indexes_l >> array_indexes_r >> targ;
     if(BinarySearch((arr + array_indexes_l), 
-      (arr + array_indexes_r), targ) == 0) {
+      (arr + array_indexes_r), targ) == false) {
       cout << "NO";
     } else {
       cout << "YES";
