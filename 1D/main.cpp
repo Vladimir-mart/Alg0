@@ -3,34 +3,27 @@
 
 using namespace std;
 
-bool BinarySearch(int* begin, int* end, int target)
-{
-  // служит для понимание что сдвинуто левая сторона(она же не включительно)
+// position служит для понимание что сдвинуто левая сторона(она же не включительно)
+
+bool BinarySearch(int* begin, int* end, int target) {
   int position = 0;
   int distance;
   bool yes_or_no = false;
-  while(1 == 1)
-  {
+  while(1 == 1) {
     distance = abs(begin - end) / 2;
-    if( * (begin + distance) < target)
-    {
+    if( * (begin + distance) < target) {
       begin += distance;
-    }
-    else
-    {
+    } else {
       end -= distance;
       position = 1;
     }
-    if(abs(begin - end) <= 1)
-    {
-      if( * (begin) == target)
-      {
+    if(abs(begin - end) <= 1) {
+      if( * (begin) == target) {
         yes_or_no = true;
       }
       // в данном случае position играет роль, был ли сдвиг, или нет
-      if( * (end) == target && position == 1)
-      {
-        yes_or_no =  true;
+      if( * (end) == target && position == 1) {
+        yes_or_no = true;
       }
       return yes_or_no;
     }
