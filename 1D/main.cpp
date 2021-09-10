@@ -21,7 +21,7 @@ bool BinarySearch(int* begin, int* end, int target) {
       if (*(begin) == target) {
         yes_or_no = true;
       }
-      // в данном случае position играет роль, был ли сдвиг, или нет   
+      // в данном случае position играет роль, был ли сдвиг, или нет
       if (*(end) == target && position == 1) {
         yes_or_no = true;
       }
