@@ -1,6 +1,6 @@
-#include <iostream>
 #include <math.h>
 #include <iomanip>
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -13,7 +13,7 @@ int main() {
     if (i == 0) {
       special_arr[0] = log(arr[0]);
     } else {
-      special_arr[i] = special_arr[i-1]+log(arr[i]);
+      special_arr[i] = special_arr[i - 1] + log(arr[i]);
     }
   }
   long long q;
@@ -23,12 +23,17 @@ int main() {
   long long arr_index_r;
   cout << fixed << showpoint;
   cout << setprecision(2 + 2 + 2 + 1);
-  for(long long i = 0; i < q; i++) {
+  for (long long i = 0; i < q; i++) {
     cin >> arr_index_l >> arr_index_r;
-    if(arr_index_l == 0) {
-      cout << pow(exp(1.0), special_arr[arr_index_r] / (arr_index_r-arr_index_l + 1) ) <<'\n';
+    if (arr_index_l == 0) {
+      cout << pow(exp(1.0),
+                  special_arr[arr_index_r] / (arr_index_r - arr_index_l + 1))
+           << '\n';
     } else {
-      cout << pow(exp(1.0), (special_arr[arr_index_r] - special_arr[arr_index_l - 1]) / (arr_index_r - arr_index_l + 1)) << '\n';
+      cout << pow(exp(1.0),
+                  (special_arr[arr_index_r] - special_arr[arr_index_l - 1]) /
+                      (arr_index_r - arr_index_l + 1))
+           << '\n';
     }
   }
   delete[] arr;
