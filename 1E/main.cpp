@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iomanip>
 using namespace std;
+
 int main() {
   long long arr_length;
   cin >> arr_length;
@@ -21,7 +22,7 @@ int main() {
   long long arr_index_l;
   long long arr_index_r;
   cout << fixed << showpoint;
-  cout << setprecision(7);
+  cout << setprecision(2 + 2 + 2 + 1);
   for(long long i = 0; i < q; i++) {
     cin >> arr_index_l >> arr_index_r;
     if(arr_index_l == 0) {
