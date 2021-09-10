@@ -44,6 +44,9 @@ int main() {
     int arr_index_r;
     int targ;
     cin >> arr_index_l >> arr_index_r >> targ;
+    if( arr_index_r >= array_length) {
+      arr_index_r = array_length - 1;
+    }
     if (BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ)) {
       cout << "YES";
     } else {
