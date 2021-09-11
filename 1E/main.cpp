@@ -13,13 +13,11 @@ void Exponentiation(const long double* arr) {
   for (long long i = 0; i < q; i++) {
     cin >> arr_index_l >> arr_index_r;
     if (arr_index_l == 0) {
-      cout << pow(exp(1.0),
-                  arr[arr_index_r] / (arr_index_r - arr_index_l + 1))
+      cout << pow(exp(1.0), arr[arr_index_r] / (arr_index_r - arr_index_l + 1))
            << '\n';
     } else {
-      cout << pow(exp(1.0),
-                  (arr[arr_index_r] - arr[arr_index_l - 1]) /
-                      (arr_index_r - arr_index_l + 1))
+      cout << pow(exp(1.0), (arr[arr_index_r] - arr[arr_index_l - 1]) /
+                                (arr_index_r - arr_index_l + 1))
            << '\n';
     }
   }
