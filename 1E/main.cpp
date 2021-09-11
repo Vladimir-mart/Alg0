@@ -5,7 +5,6 @@ using namespace std;
 void Exponentiation(const long double* arr) {
   long long q;
   cin >> q;
-  long double e = exp(1.0);
   long long arr_index_l;
   long long arr_index_r;
   cout << fixed << showpoint;
