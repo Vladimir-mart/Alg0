@@ -2,8 +2,8 @@
 #include <iomanip>
 #include <iostream>
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::log;
 using std::pow;
 
@@ -11,11 +11,11 @@ void Exponentiation(const long double* arr, const long long arr_index_l,
                     const long long arr_index_r) {
   if (arr_index_l == 0) {
     cout << pow(exp(1.0), arr[arr_index_r] / (arr_index_r - arr_index_l + 1))
-          << '\n';
+         << '\n';
   } else {
     cout << pow(exp(1.0), (arr[arr_index_r] - arr[arr_index_l - 1]) /
                               (arr_index_r - arr_index_l + 1))
-          << '\n';
+         << '\n';
   }
 }
 
