@@ -1,33 +1,32 @@
 #include <cmath>
 #include <iostream>
 
-using namespace std;
+using std::cin;
+using std::cout;
 
-bool BinarySearch(int* begin, int* end, int target) {
+bool BinarySearch(const int* begin, const int* end, const int target) {
   // position служит для понимание что сдвинуто левая сторона(она же не
   // включительно)
   int position = 0;
   int distance;
-  bool yes_or_no = false;
-  while (1 == 1) {
+  bool result = false;
+  while (abs(begin - end) > 1) {
     distance = abs(begin - end) / 2;
     if (*(begin + distance) < target) {
       begin += distance;
     } else {
       end -= distance;
       position = 1;
-    }
-    if (abs(begin - end) <= 1) {
-      if (*(begin) == target) {
-        yes_or_no = true;
-      }
-      // в данном случае position играет роль, был ли сдвиг, или нет
-      if (*(end) == target && position == 1) {
-        yes_or_no = true;
-      }
-      return yes_or_no;
-    }
+    } 
   }
+  if (*(begin) == target) {
+    result = true;
+  }
+  // в данном случае position играет роль, был ли сдвиг, или нет
+  if (*(end) == target && position == 1) {
+    result = true;
+  }
+  return result;
 }
 
 int main() {
@@ -38,20 +37,19 @@ int main() {
     cin >> arr[i];
   }
   arr[array_length] = arr[0];
-  int q;
-  cin >> q;
-  while (q != 0) {
+  int number_of_queries;
+  cin >> number_of_queries;
+  while (number_of_queries != 0) {
     int arr_index_l;
     int arr_index_r;
     int targ;
     cin >> arr_index_l >> arr_index_r >> targ;
     if (BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ)) {
-      cout << "YES";
+      cout << "YES" << '\n';
     } else {
-      cout << "NO";
+      cout << "NO" << '\n';
     }
-    cout << '\n';
-    q--;
+    number_of_queries--;
   }
   delete[] arr;
 }
