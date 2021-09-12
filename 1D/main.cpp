@@ -17,7 +17,7 @@ bool BinarySearch(const int* begin, const int* end, const int target) {
     } else {
       end -= distance;
       position = 1;
-    } 
+    }
   }
   if (*(begin) == target) {
     result = true;
