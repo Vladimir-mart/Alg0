@@ -1,9 +1,9 @@
 #include <cmath>
 #include <iostream>
 
+using std::abs;
 using std::cin;
 using std::cout;
-using std::abs;
 
 bool BinarySearch(const int* begin, const int* end, const int target) {
   // position служит для понимание что сдвинуто левая сторона(она же не
