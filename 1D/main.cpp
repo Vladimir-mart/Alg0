@@ -45,11 +45,8 @@ int main() {
     int arr_index_r;
     int targ;
     cin >> arr_index_l >> arr_index_r >> targ;
-    if (BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ)) {
-      cout << "YES" << '\n';
-    } else {
-      cout << "NO" << '\n';
-    }
+    (BinarySearch((arr + arr_index_l), (arr + arr_index_r), targ)) ? 
+    cout << "YES" << '\n' : cout << "NO" << '\n';
     number_of_queries--;
   }
   delete[] arr;
