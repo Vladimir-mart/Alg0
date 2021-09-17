@@ -33,52 +33,52 @@ class List {
     long long min_s;
   };
   // Размер списка
-  long long size_stack_t;
+  long long size_stack_;
   // Голова односвязного списка
-  Node* head_s;
+  Node* head_;
 };
 
 List::List() {
-  size_stack_t = 0;
-  head_s = nullptr;
+  size_stack_ = 0;
+  head_ = nullptr;
 }
 
 bool List::IsEmpty() const {
-  if (size_stack_t != 0) {
+  if (size_stack_ != 0) {
     return true;
   }
 }
 void List::Push(long long t) {
   Node* time = new Node;
-  time->next = head_s;
+  time->next = head_;
   time->vale = t;
-  size_stack_t++;
-  if (size_stack_t > 1) {
-    time->min_s = min(head_s->min_s, t);
+  size_stack_++;
+  if (size_stack_ > 1) {
+    time->min_s = min(head_->min_s, t);
   }
-  head_s = time;
-  if (size_stack_t == 1) {
+  head_ = time;
+  if (size_stack_ == 1) {
     time->min_s = time->vale;
   }
 }
 
 int List::Pop() {
-  Node* new_head = head_s->next;
-  int a = head_s->vale;
-  delete head_s;
-  head_s = new_head;
-  size_stack_t--;
+  Node* new_head = head_->next;
+  int a = head_->vale;
+  delete head_;
+  head_ = new_head;
+  size_stack_--;
   return a;
 }
 
 void List::Clear() {
-  while (size_stack_t != 0) {
+  while (size_stack_ != 0) {
     Pop();
   }
 }
 
 void List::Show() {
-  Node* time = head_s;
+  Node* time = head_;
   while (time != 0) {
     cout << time->vale << " ";
     time = time->next;
@@ -86,11 +86,11 @@ void List::Show() {
   cout << '\n';
 }
 
-int List::Back() { return head_s->vale; }
+int List::Back() { return head_->vale; }
 
-int List::Min() const { return head_s->min_s; }
+int List::Min() const { return head_->min_s; }
 
-uint64_t List::Size() const { return size_stack_t; }
+uint64_t List::Size() const { return size_stack_; }
 
 List::~List() { Clear(); }
 
