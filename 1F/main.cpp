@@ -44,9 +44,11 @@ List::List() {
 }
 
 bool List::IsEmpty() const {
+  bool empt = false;
   if (size_stack_ != 0) {
-    return true;
+    empt = true;
   }
+  return empt;
 }
 
 void List::Push(long long t) {
