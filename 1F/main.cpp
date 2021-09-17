@@ -23,7 +23,7 @@ class List {
   // Получения минимума
   int Min() const;
   // Пустота
-  bool isEmpty() const;
+  bool IsEmpty() const;
 
  private:
   // Структура узла односвязного списка
@@ -33,53 +33,52 @@ class List {
     long long min_s;
   };
   // Размер списка
-  long long size_stack;
+  long long size_stack_t;
   // Голова односвязного списка
-  Node* head;
+  Node* head_s;
 };
 
 List::List() {
-  size_stack = 0;
-  head = nullptr;
+  size_stack_t = 0;
+  head_s = nullptr;
 }
 
-bool List::isEmpty() const {
-  if (size_stack != 0) {
+bool List::IsEmpty() const {
+  if (size_stack_t != 0) {
     return true;
   }
-  return false;
 }
 void List::Push(long long t) {
   Node* time = new Node;
-  time->next = head;
+  time->next = head_s;
   time->vale = t;
-  size_stack++;
-  if (size_stack > 1) {
-    time->min_s = min(head->min_s, t);
+  size_stack_t++;
+  if (size_stack_t > 1) {
+    time->min_s = min(head_s->min_s, t);
   }
-  head = time;
-  if (size_stack == 1) {
+  head_s = time;
+  if (size_stack_t == 1) {
     time->min_s = time->vale;
   }
 }
 
 int List::Pop() {
-  Node* newHead = head->next;
-  int a = head->vale;
-  delete head;
-  head = newHead;
-  size_stack--;
+  Node* new_head = head_s->next;
+  int a = head_s->vale;
+  delete head_s;
+  head_s = new_head;
+  size_stack_t--;
   return a;
 }
 
 void List::Clear() {
-  while (size_stack != 0) {
+  while (size_stack_t != 0) {
     Pop();
   }
 }
 
 void List::Show() {
-  Node* time = head;
+  Node* time = head_s;
   while (time != 0) {
     cout << time->vale << " ";
     time = time->next;
@@ -87,11 +86,11 @@ void List::Show() {
   cout << '\n';
 }
 
-int List::Back() { return head->vale; }
+int List::Back() { return head_s->vale; }
 
-int List::Min() const { return head->min_s; }
+int List::Min() const { return head_s->min_s; }
 
-uint64_t List::Size() const { return size_stack; }
+uint64_t List::Size() const { return size_stack_t; }
 
 List::~List() { Clear(); }
 
@@ -111,7 +110,7 @@ void Querys(List* ls, string request) {
     ls->Clear();
     return;
   }
-  if (ls->isEmpty()) {
+  if (ls->IsEmpty()) {
     if (request == "back") {
       cout << ls->Back() << '\n';
     }
