@@ -110,54 +110,54 @@ class Queue {
   ~Queue();
 
  private:
-  List in, out;
+  List in_, out_;
 };
 
 bool Queue::IsEmpty() {
   bool empt = false;
-  if ((in.Size() + out.Size()) != 0) {
+  if ((in_.Size() + out_.Size()) != 0) {
     empt = true;
   }
   return empt;
 }
 
 void Queue::Clear() {
-  in.Clear();
-  out.Clear();
+  in_.Clear();
+  out_.Clear();
 }
 
 int Queue::Front() {
-  if (out.Size() == 0) {
-    while (in.Size() != 0) {
-      out.Push(in.Pop());
+  if (out_.Size() == 0) {
+    while (in_.Size() != 0) {
+      out_.Push(in_.Pop());
     }
   }
-  return out.Back();
+  return out_.Back();
 }
 
-int Queue::Size() { return in.Size() + out.Size(); }
+int Queue::Size() { return in_.Size() + out_.Size(); }
 
 int Queue::Min() {
-  if (in.Size() == 0) {
-    return out.Min();
+  if (in_.Size() == 0) {
+    return out_.Min();
   }
-  if (out.Size() == 0) {
-    return in.Min();
+  if (out_.Size() == 0) {
+    return in_.Min();
   }
-  return min(in.Min(), out.Min());
+  return min(in_.Min(), out_.Min());
 }
 
 void Queue::Dequeue() {
-  if (out.Size() == 0) {
-    while (in.Size() != 0) {
-      out.Push(in.Pop());
+  if (out_.Size() == 0) {
+    while (in_.Size() != 0) {
+      out_.Push(in_.Pop());
     }
   }
-  cout << out.Back() << '\n';
-  out.Pop();
+  cout << out_.Back() << '\n';
+  out_.Pop();
 }
 
-void Queue::Enqueue(long long t) { in.Push(t); }
+void Queue::Enqueue(long long t) { in_.Push(t); }
 
 Queue::Queue() {}
 
