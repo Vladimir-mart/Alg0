@@ -48,6 +48,7 @@ bool List::IsEmpty() const {
     return true;
   }
 }
+
 void List::Push(long long t) {
   Node* time = new Node;
   time->next = head_;
