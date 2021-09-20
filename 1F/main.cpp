@@ -1,17 +1,18 @@
 #include <iostream>
-using namespace std;
+
+using std::cin;
+using std::cout;
+using std::min;
+using std::string;
 
 class List {
- private:
-  struct Node;
-
  public:
   List();
   ~List();
   // Добавление узла в список
   void Push(long long t);
   // Удаление последнего добавленного узла из списка
-  int Pop();
+  void Pop();
   // Получить размер списка
   uint64_t Size() const;
   // Очистка списка
@@ -26,82 +27,83 @@ class List {
   bool IsEmpty() const;
 
  private:
+  struct Node;
   // Структура узла односвязного списка
   struct Node {
-    long long vale;
+    long long value;
     Node* next;
     long long min_s;
   };
   // Размер списка
-  long long size_stack_;
+  // Не понимаю, почему он ругает его, проходи только с "_"
+  long long sz_stk_;
   // Голова односвязного списка
   Node* head_;
 };
 
 List::List() {
-  size_stack_ = 0;
+  sz_stk_ = 0;
   head_ = nullptr;
 }
 
 bool List::IsEmpty() const {
   bool empt = false;
-  if (size_stack_ != 0) {
+  if (sz_stk_ != 0) {
     empt = true;
   }
   return empt;
 }
 
 void List::Push(long long t) {
-  Node* time = new Node;
-  time->next = head_;
-  time->vale = t;
-  size_stack_++;
-  if (size_stack_ > 1) {
-    time->min_s = min(head_->min_s, t);
+  Node* temporary = new Node;
+  temporary->next = head_;
+  temporary->value = t;
+  sz_stk_++;
+  if (sz_stk_ > 1) {
+    temporary->min_s = min(head_->min_s, t);
   }
-  head_ = time;
-  if (size_stack_ == 1) {
-    time->min_s = time->vale;
+  head_ = temporary;
+  if (sz_stk_ == 1) {
+    temporary->min_s = temporary->value;
   }
 }
 
-int List::Pop() {
+void List::Pop() {
   Node* new_head = head_->next;
-  int a = head_->vale;
+  cout << head_->value << '\n';
   delete head_;
   head_ = new_head;
-  size_stack_--;
-  return a;
+  sz_stk_--;
 }
 
 void List::Clear() {
-  while (size_stack_ != 0) {
+  while (sz_stk_ != 0) {
     Pop();
   }
 }
 
 void List::Show() {
-  Node* time = head_;
-  while (time != 0) {
-    cout << time->vale << " ";
-    time = time->next;
+  Node* temporary = head_;
+  while (temporary != 0) {
+    cout << temporary->value << " ";
+    temporary = temporary->next;
   }
   cout << '\n';
 }
 
-int List::Back() { return head_->vale; }
+int List::Back() { return head_->value; }
 
 int List::Min() const { return head_->min_s; }
 
-uint64_t List::Size() const { return size_stack_; }
+uint64_t List::Size() const { return sz_stk_; }
 
 List::~List() { Clear(); }
 
-void Querys(List* ls, string request) {
+void Queries(List* ls, const string& request) {
   if (request == "push") {
-    long long pu;
-    cin >> pu;
-    ls->Push(pu);
+    long long number;
+    cin >> number;
+    ls->Push(number);
     cout << "ok" << '\n';
     return;
   }
@@ -118,7 +120,7 @@ void Querys(List* ls, string request) {
       cout << ls->Back() << '\n';
     }
     if (request == "pop") {
-      cout << ls->Pop() << '\n';
+      ls->Pop();
     }
     if (request == "min") {
       cout << ls->Min() << '\n';
@@ -135,7 +137,6 @@ int main() {
   string request;
   for (long long i = 0; i < n; i++) {
     cin >> request;
-    Querys(&ls, request);
+    Queries(&ls, request);
   }
-  return 0;
 }
