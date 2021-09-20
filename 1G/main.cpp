@@ -107,16 +107,24 @@ class Queue {
   int SizeQ();
   int Front();
   void Clear();
-  bool IsEmpty();
+  int IsEmpty();
+  void Transfer();
   ~Queue();
 
  private:
   List in_, out_;
 };
 
-bool Queue::IsEmpty() {
-  return (in_.Size() + out_.Size());
+void Queue::Transfer() {
+  if (out_.Size() == 0) {
+    while (in_.Size() != 0) {
+      out_.Push(in_.Back());
+      in_.Pop();
+    }
+  }
 }
+
+int Queue::IsEmpty() { return (in_.Size() + out_.Size()); }
 
 void Queue::Clear() {
   in_.Clear();
@@ -124,12 +132,7 @@ void Queue::Clear() {
 }
 
 int Queue::Front() {
-  if (out_.Size() == 0) {
-    while (in_.Size() != 0) {
-      out_.Push(in_.Back());
-      in_.Pop();
-    }
-  }
+  Transfer();
   return out_.Back();
 }
 
@@ -146,12 +149,7 @@ int Queue::Min() {
 }
 
 void Queue::Dequeue() {
-  if (out_.Size() == 0) {
-    while (in_.Size() != 0) {
-      out_.Push(in_.Back());
-      in_.Pop();
-    }
-  }
+  Transfer();
   cout << out_.Back() << '\n';
   out_.Pop();
 }
@@ -179,7 +177,7 @@ void Querys(Queue* que, const string& request) {
     cout << "ok" << '\n';
     return;
   }
-  if (que->IsEmpty()) {
+  if (que->IsEmpty() != 0) {
     if (request == "front") {
       cout << que->Front() << '\n';
     }
