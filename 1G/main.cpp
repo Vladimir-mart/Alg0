@@ -115,7 +115,7 @@ class Queue {
 };
 
 bool Queue::IsEmpty() {
-  return ((in_.Size() + out_.Size()) != 0) ? true : false;
+  return (in_.Size() + out_.Size());
 }
 
 void Queue::Clear() {
