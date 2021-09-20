@@ -1,17 +1,18 @@
 #include <iostream>
-using namespace std;
+
+using std::cin;
+using std::cout;
+using std::min;
+using std::string;
 
 class List {
- private:
-  struct Node;
-
  public:
   List();
   ~List();
   // Добавление узла в список
   void Push(long long t);
   // Удаление последнего добавленного узла из списка
-  int Pop();
+  void Pop();
   // Получить размер списка
   uint64_t Size() const;
   // Очистка списка
@@ -26,74 +27,74 @@ class List {
   bool IsEmpty() const;
 
  private:
+  struct Node;
   // Структура узла односвязного списка
   struct Node {
-    long long vale;
+    long long value;
     Node* next;
     long long min_s;
   };
   // Размер списка
-  long long size_stack_;
+  // Не понимаю, почему он ругает его, проходи только с "_"
+  long long sz_stk_;
   // Голова односвязного списка
   Node* head_;
 };
 
 List::List() {
-  size_stack_ = 0;
+  sz_stk_ = 0;
   head_ = nullptr;
 }
 
 bool List::IsEmpty() const {
   bool empt = false;
-  if (size_stack_ != 0) {
+  if (sz_stk_ != 0) {
     empt = true;
   }
   return empt;
 }
 
 void List::Push(long long t) {
-  Node* time = new Node;
-  time->next = head_;
-  time->vale = t;
-  size_stack_++;
-  if (size_stack_ > 1) {
-    time->min_s = min(head_->min_s, t);
+  Node* temporary = new Node;
+  temporary->next = head_;
+  temporary->value = t;
+  sz_stk_++;
+  if (sz_stk_ > 1) {
+    temporary->min_s = min(head_->min_s, t);
   }
-  head_ = time;
-  if (size_stack_ == 1) {
-    time->min_s = time->vale;
+  head_ = temporary;
+  if (sz_stk_ == 1) {
+    temporary->min_s = temporary->value;
   }
 }
 
-int List::Pop() {
+void List::Pop() {
   Node* new_head = head_->next;
-  int a = head_->vale;
   delete head_;
   head_ = new_head;
-  size_stack_--;
-  return a;
+  sz_stk_--;
 }
 
 void List::Clear() {
-  while (size_stack_ != 0) {
+  while (sz_stk_ != 0) {
     Pop();
   }
 }
 
 void List::Show() {
-  Node* time = head_;
-  while (time != 0) {
-    cout << time->vale << " ";
-    time = time->next;
+  Node* temporary = head_;
+  while (temporary != 0) {
+    cout << temporary->value << " ";
+    temporary = temporary->next;
   }
   cout << '\n';
 }
 
-int List::Back() { return head_->vale; }
+int List::Back() { return head_->value; }
 
 int List::Min() const { return head_->min_s; }
 
-uint64_t List::Size() const { return size_stack_; }
+uint64_t List::Size() const { return sz_stk_; }
 
 List::~List() { Clear(); }
 
@@ -103,7 +104,7 @@ class Queue {
   void Enqueue(long long t);
   void Dequeue();
   int Min();
-  int Size();
+  int SizeQ();
   int Front();
   void Clear();
   bool IsEmpty();
@@ -114,11 +115,7 @@ class Queue {
 };
 
 bool Queue::IsEmpty() {
-  bool empt = false;
-  if ((in_.Size() + out_.Size()) != 0) {
-    empt = true;
-  }
-  return empt;
+  return ((in_.Size() + out_.Size()) != 0) ? true : false;
 }
 
 void Queue::Clear() {
@@ -129,13 +126,14 @@ void Queue::Clear() {
 int Queue::Front() {
   if (out_.Size() == 0) {
     while (in_.Size() != 0) {
-      out_.Push(in_.Pop());
+      out_.Push(in_.Back());
+      in_.Pop();
     }
   }
   return out_.Back();
 }
 
-int Queue::Size() { return in_.Size() + out_.Size(); }
+int Queue::SizeQ() { return in_.Size() + out_.Size(); }
 
 int Queue::Min() {
   if (in_.Size() == 0) {
@@ -150,7 +148,8 @@ int Queue::Min() {
 void Queue::Dequeue() {
   if (out_.Size() == 0) {
     while (in_.Size() != 0) {
-      out_.Push(in_.Pop());
+      out_.Push(in_.Back());
+      in_.Pop();
     }
   }
   cout << out_.Back() << '\n';
@@ -163,32 +162,32 @@ Queue::Queue() {}
 
 Queue::~Queue() { Clear(); }
 
-void Querys(Queue* ls, string request) {
+void Querys(Queue* que, const string& request) {
   if (request == "enqueue") {
     long long pu;
     cin >> pu;
-    ls->Enqueue(pu);
+    que->Enqueue(pu);
     cout << "ok" << '\n';
     return;
   }
   if (request == "size") {
-    cout << ls->Size() << '\n';
+    cout << que->SizeQ() << '\n';
     return;
   }
   if (request == "clear") {
-    ls->Clear();
+    que->Clear();
     cout << "ok" << '\n';
     return;
   }
-  if (ls->IsEmpty()) {
+  if (que->IsEmpty()) {
     if (request == "front") {
-      cout << ls->Front() << '\n';
+      cout << que->Front() << '\n';
     }
     if (request == "dequeue") {
-      ls->Dequeue();
+      que->Dequeue();
     }
     if (request == "min") {
-      cout << ls->Min() << '\n';
+      cout << que->Min() << '\n';
     }
   } else {
     cout << "error" << '\n';
@@ -196,13 +195,12 @@ void Querys(Queue* ls, string request) {
 }
 
 int main() {
-  Queue ls;
-  long long n;
-  cin >> n;
+  Queue que;
+  long long number;
+  cin >> number;
   string request;
-  for (long long i = 0; i < n; i++) {
+  for (long long i = 0; i < number; i++) {
     cin >> request;
-    Querys(&ls, request);
+    Querys(&que, request);
   }
-  return 0;
 }
