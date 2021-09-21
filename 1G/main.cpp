@@ -104,7 +104,7 @@ class Queue {
   void Enqueue(long long t);
   void Dequeue();
   int Min();
-  int SizeQ();
+  unsigned int SizeQ();
   int Front();
   void Clear();
   int IsEmpty();
@@ -136,7 +136,7 @@ int Queue::Front() {
   return out_.Back();
 }
 
-int Queue::SizeQ() { return in_.Size() + out_.Size(); }
+unsigned int Queue::SizeQ() { return in_.Size() + out_.Size(); }
 
 int Queue::Min() {
   if (in_.Size() == 0) {
