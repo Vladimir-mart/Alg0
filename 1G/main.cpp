@@ -42,7 +42,7 @@ class List {
 };
 
 List::List() {
-  size_stk_ = 0; 
+  size_stk_ = 0;
   head_ = nullptr;
 }
 
