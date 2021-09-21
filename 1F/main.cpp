@@ -35,20 +35,19 @@ class List {
     long long min_s;
   };
   // Размер списка
-  // Не понимаю, почему он ругает его, проходи только с "_"
-  long long sz_stk_;
+  unsigned long long size_stk_;
   // Голова односвязного списка
   Node* head_;
 };
 
 List::List() {
-  sz_stk_ = 0;
+  size_stk_ = 0;
   head_ = nullptr;
 }
 
 bool List::IsEmpty() const {
   bool empt = false;
-  if (sz_stk_ != 0) {
+  if (size_stk_ != 0) {
     empt = true;
   }
   return empt;
@@ -58,12 +57,12 @@ void List::Push(long long t) {
   Node* temporary = new Node;
   temporary->next = head_;
   temporary->value = t;
-  sz_stk_++;
-  if (sz_stk_ > 1) {
+  size_stk_++;
+  if (size_stk_ > 1) {
     temporary->min_s = min(head_->min_s, t);
   }
   head_ = temporary;
-  if (sz_stk_ == 1) {
+  if (size_stk_ == 1) {
     temporary->min_s = temporary->value;
   }
 }
@@ -73,11 +72,11 @@ void List::Pop() {
   cout << head_->value << '\n';
   delete head_;
   head_ = new_head;
-  sz_stk_--;
+  size_stk_--;
 }
 
 void List::Clear() {
-  while (sz_stk_ != 0) {
+  while (size_stk_ != 0) {
     Pop();
   }
 }
@@ -95,7 +94,7 @@ int List::Back() { return head_->value; }
 
 int List::Min() const { return head_->min_s; }
 
-uint64_t List::Size() const { return sz_stk_; }
+uint64_t List::Size() const { return size_stk_; }
 
 List::~List() { Clear(); }
 
