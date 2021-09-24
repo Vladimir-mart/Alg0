@@ -160,32 +160,32 @@ Queue::Queue() {}
 
 Queue::~Queue() { Clear(); }
 
-void Querys(Queue* que, const string& request) {
+void Querys(Queue& que, const string& request) {
   if (request == "enqueue") {
     long long pu;
     cin >> pu;
-    que->Enqueue(pu);
+    que.Enqueue(pu);
     cout << "ok" << '\n';
     return;
   }
   if (request == "size") {
-    cout << que->SizeQ() << '\n';
+    cout << que.SizeQ() << '\n';
     return;
   }
   if (request == "clear") {
-    que->Clear();
+    que.Clear();
     cout << "ok" << '\n';
     return;
   }
-  if (que->IsEmpty() != 0) {
+  if (que.IsEmpty() != 0) {
     if (request == "front") {
-      cout << que->Front() << '\n';
+      cout << que.Front() << '\n';
     }
     if (request == "dequeue") {
-      que->Dequeue();
+      que.Dequeue();
     }
     if (request == "min") {
-      cout << que->Min() << '\n';
+      cout << que.Min() << '\n';
     }
   } else {
     cout << "error" << '\n';
@@ -199,6 +199,6 @@ int main() {
   string request;
   for (long long i = 0; i < number; i++) {
     cin >> request;
-    Querys(&que, request);
+    Querys(que, request);
   }
 }
