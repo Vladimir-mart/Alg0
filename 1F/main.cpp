@@ -69,7 +69,6 @@ void List::Push(long long t) {
 
 void List::Pop() {
   Node* new_head = head_->next;
-  cout << head_->value << '\n';
   delete head_;
   head_ = new_head;
   size_stk_--;
@@ -98,31 +97,32 @@ uint64_t List::Size() const { return size_stk_; }
 
 List::~List() { Clear(); }
 
-void Queries(List* ls, const string& request) {
+void Queries(List& ls, const string& request) {
   if (request == "push") {
     long long number;
     cin >> number;
-    ls->Push(number);
+    ls.Push(number);
     cout << "ok" << '\n';
     return;
   }
   if (request == "size") {
-    cout << ls->Size() << '\n';
+    cout << ls.Size() << '\n';
     return;
   }
   if (request == "clear") {
-    ls->Clear();
+    ls.Clear();
     return;
   }
-  if (ls->IsEmpty()) {
+  if (ls.IsEmpty()) {
     if (request == "back") {
-      cout << ls->Back() << '\n';
+      cout << ls.Back() << '\n';
     }
     if (request == "pop") {
-      ls->Pop();
+      cout << ls.Back() << '\n';
+      ls.Pop();
     }
     if (request == "min") {
-      cout << ls->Min() << '\n';
+      cout << ls.Min() << '\n';
     }
   } else {
     cout << "error" << '\n';
@@ -136,6 +136,6 @@ int main() {
   string request;
   for (long long i = 0; i < n; i++) {
     cin >> request;
-    Queries(&ls, request);
+    Queries(ls, request);
   }
 }
