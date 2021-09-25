@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-// Не бейте -_-
+
 using std::cin;
 using std::cout;
 using std::min;
@@ -99,27 +99,29 @@ uint64_t List::Size() const { return size_stk_; }
 
 List::~List() { Clear(); }
 
-// Не бейте, не помещается все в одно
+struct SplitHealp {
+  std::vector<string> st;
+  string temp;
+  string temp_check;
+};
 
 unsigned int iter_split = 0;
 unsigned int iter_temp = 0;
 unsigned int iter_temp_check = 0;
 int position = 0;
-std::vector<string> st;
-string temp;
-string temp_check;
 
-void CheckSplit(string arr, string split, unsigned int i) {
+void CheckSplit(string arr, string split, unsigned int i,
+                SplitHealp& temp_healp) {
   if (arr[i] == split[iter_split]) {
-    temp_check += arr[i];
+    temp_healp.temp_check += arr[i];
     position = 1;
     iter_split++;
     iter_temp_check++;
     // Разрез найден
     if (iter_split == split.length()) {
-      st.push_back(temp);
-      temp.clear();
-      temp_check.clear();
+      temp_healp.st.push_back(temp_healp.temp);
+      temp_healp.temp.clear();
+      temp_healp.temp_check.clear();
       iter_temp = 0;
       iter_temp_check = 0;
       iter_split = 0;
@@ -130,37 +132,37 @@ void CheckSplit(string arr, string split, unsigned int i) {
     if (position == 1) {
       position = 0;
       iter_temp += iter_temp_check;
-      temp += temp_check;
+      temp_healp.temp += temp_healp.temp_check;
     }
   }
 }
 
-std::vector<string> Spliter(string arr, string split) {
+std::vector<string> Spliter(string arr, string split, SplitHealp& temp_healp) {
   for (unsigned int i = 0; i < arr.length(); i++) {
     // Проверка на начло разреза
-    CheckSplit(arr, split, i);
+    CheckSplit(arr, split, i, temp_healp);
     if (position == 0) {
-      temp += arr[i];
+      temp_healp.temp += arr[i];
       iter_temp++;
     }
     if (position == 2) {
       position = 0;
     }
   }
-  st.push_back(temp);
-  return st;
+  temp_healp.st.push_back(temp_healp.temp);
+  return temp_healp.st;
 }
 
 const int ten = 10;
 int pol = 0;
-List* PolishEntryCheck(List* stk, char c, int val) {
+void PolishEntryCheck(List& stk, char c, int val) {
   if (pol == 1) {
     int a;
     int b;
-    b = stk->Back();
-    stk->Pop();
-    a = stk->Back();
-    stk->Pop();
+    b = stk.Back();
+    stk.Pop();
+    a = stk.Back();
+    stk.Pop();
     switch (c) {
       case '+':
         a += b;
@@ -177,19 +179,19 @@ List* PolishEntryCheck(List* stk, char c, int val) {
       default:
         break;
     }
-    stk->Push(a);
+    stk.Push(a);
     pol = 0;
   } else {
-    stk->Push(val);
+    stk.Push(val);
   }
-  return stk;
 }
 
-int PolishEntry(List* stk, string arr) {
+int PolishEntry(List& stk, string arr) {
   int val = 0;
   string split;
   split = " ";
-  std::vector<string> test = Spliter(arr, split);
+  SplitHealp temp_healp;
+  std::vector<string> test = Spliter(arr, split, temp_healp);
   for (unsigned int i = 0; i < test.size(); i++) {
     val = 0;
     if (test[i][0] == '-' || test[i][0] == '+' || test[i][0] == '/' ||
@@ -200,14 +202,14 @@ int PolishEntry(List* stk, string arr) {
         val = val * ten + (test[i][j] - '0');
       }
     }
-    stk = PolishEntryCheck(stk, test[i][0], val);
+    PolishEntryCheck(stk, test[i][0], val);
   }
-  return stk->Back();
+  return stk.Back();
 }
 
 int main() {
   List stk;
   string arr;
   getline(cin, arr);
-  cout << PolishEntry(&stk, arr) << '\n';
+  cout << PolishEntry(stk, arr) << '\n';
 }
