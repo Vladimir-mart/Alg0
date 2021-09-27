@@ -1,18 +1,20 @@
 #include <iostream>
-#include <iostream>
-using namespace std;
+#include <string>
+#include <vector>
+
+using std::cin;
+using std::cout;
+using std::min;
+using std::string;
 
 class List {
- private:
-  struct Node;
-
  public:
   List();
   ~List();
   // Добавление узла в список
   void Push(long long t);
   // Удаление последнего добавленного узла из списка
-  int Pop();
+  void Pop();
   // Получить размер списка
   uint64_t Size() const;
   // Очистка списка
@@ -23,24 +25,19 @@ class List {
   int Back();
   // Получения минимума
   int Min() const;
-  // Пустота 
+  // Пустота
   bool IsEmpty() const;
-  // Для строк
-  void PushStr(char* t);
-  // Для строк
-  void PopStr();
-  // Для строк
-  char* BackStr();
+
  private:
+  struct Node;
   // Структура узла односвязного списка
   struct Node {
-    int value;
-    char* str_foo;
+    long long value;
     Node* next;
     long long min_s;
   };
   // Размер списка
-  long long size_stk_;
+  unsigned long long size_stk_;
   // Голова односвязного списка
   Node* head_;
 };
@@ -48,25 +45,6 @@ class List {
 List::List() {
   size_stk_ = 0;
   head_ = nullptr;
-}
-
-char* List::BackStr() {
-  return head_->str_foo;
-}
-
-void List::PopStr() {
-  Node* new_head = head_->next;
-  delete head_;
-  head_ = new_head;
-  size_stk_--;
-}
-
-void List::PushStr(char* t) {
-  Node* temporary = new Node;
-  temporary->next = head_;
-  temporary->str_foo = t;
-  size_stk_++;
-  head_ = temporary;
 }
 
 bool List::IsEmpty() const {
@@ -91,13 +69,11 @@ void List::Push(long long t) {
   }
 }
 
-int List::Pop() {
+void List::Pop() {
   Node* new_head = head_->next;
-  int a = head_->value;
   delete head_;
   head_ = new_head;
   size_stk_--;
-  return a;
 }
 
 void List::Clear() {
@@ -123,112 +99,117 @@ uint64_t List::Size() const { return size_stk_; }
 
 List::~List() { Clear(); }
 
-List Spliter(char* arr, char* split) { 
-  int len = 0;
-  int i = 0;
-  int spl_i = 0;
-  List temp;
-  while(split[spl_i]+'0' != 48) {
-    cout << split[spl_i]+'0' << '\n';
-    spl_i++;
-  }
-  int spl_i_temp = spl_i;
-  while(arr[len]+'0' != 48) {
-    len++;
-  }
-  char* str1 = new char[len];
-  char* str2 = new char[len];
-  int q = 0;
-  int pol = 1;
-  int pol1 = 0;
-  int q1 = 0;
-  for(int i = 0; i < len; i++) {
-    if(pol == 0) {
-      str2 = str1;
-      q = q + q1;
+struct SplitHealp {
+  std::vector<string> st;
+  string temp;
+  string temp_check;
+};
+
+unsigned int iter_split = 0;
+unsigned int iter_temp = 0;
+unsigned int iter_temp_check = 0;
+int position = 0;
+
+void CheckSplit(string arr, string split, unsigned int i,
+                SplitHealp& temp_healp) {
+  if (arr[i] == split[iter_split]) {
+    temp_healp.temp_check += arr[i];
+    position = 1;
+    iter_split++;
+    iter_temp_check++;
+    // Разрез найден
+    if (iter_split == split.length()) {
+      temp_healp.st.push_back(temp_healp.temp);
+      temp_healp.temp.clear();
+      temp_healp.temp_check.clear();
+      iter_temp = 0;
+      iter_temp_check = 0;
+      iter_split = 0;
+      position = 2;
     }
-    str1[i] = arr[i];
-    if(arr[i] == split[i]) {
-      pol = 0;
-      q1++;
-      spl_i_temp--;
-      if(spl_i_temp == 0)
-      {
-        spl_i_temp = spl_i;
-        temp.PushStr(str2);
-        delete[] str2;
-        q = 0;
-        spl_i_temp = spl_i;
-      }
+  } else {
+    // Если разрез был не полностью
+    if (position == 1) {
+      position = 0;
+      iter_temp += iter_temp_check;
+      temp_healp.temp += temp_healp.temp_check;
+    }
+  }
+}
+
+std::vector<string> Spliter(string arr, string split, SplitHealp& temp_healp) {
+  for (unsigned int i = 0; i < arr.length(); i++) {
+    // Проверка на начло разреза
+    CheckSplit(arr, split, i, temp_healp);
+    if (position == 0) {
+      temp_healp.temp += arr[i];
+      iter_temp++;
+    }
+    if (position == 2) {
+      position = 0;
+    }
+  }
+  temp_healp.st.push_back(temp_healp.temp);
+  return temp_healp.st;
+}
+
+const int ten = 10;
+int pol = 0;
+void PolishEntryCheck(List& stk, char c, int val) {
+  if (pol == 1) {
+    int a;
+    int b;
+    b = stk.Back();
+    stk.Pop();
+    a = stk.Back();
+    stk.Pop();
+    switch (c) {
+      case '+':
+        a += b;
+        break;
+      case '-':
+        a -= b;
+        break;
+      case '*':
+        a *= b;
+        break;
+      case '/':
+        a /= b;
+        break;
+      default:
+        break;
+    }
+    stk.Push(a);
+    pol = 0;
+  } else {
+    stk.Push(val);
+  }
+}
+
+int PolishEntry(List& stk, string arr) {
+  int val = 0;
+  string split;
+  split = " ";
+  SplitHealp temp_healp;
+  std::vector<string> test = Spliter(arr, split, temp_healp);
+  for (unsigned int i = 0; i < test.size(); i++) {
+    val = 0;
+    if (test[i][0] == '-' || test[i][0] == '+' || test[i][0] == '/' ||
+        test[i][0] == '*') {
+      pol = 1;
     } else {
-      q1 = 0;
-      str2[q] = arr[i];
-      q++;
+      for (unsigned int j = 0; j < test[i].length(); j++) {
+        val = val * ten + (test[i][j] - '0');
+      }
     }
-    len++;
+    PolishEntryCheck(stk, test[i][0], val);
   }
-  temp.PushStr(str2);
+  return stk.Back();
 }
 
 int main() {
   List stk;
-  char c;
-  int V = 0;
-  int i = 1;
-  int pol = 0;
-  while (c != '\n') {
-    V = 0;
-    while (c != ' ' || c != '\n') {
-      c = cin.get();
-      if (c == '0') {
-        pol = 2;
-      }
-      if (c == '-' || c == '+' || c == '/' || c == '*') {
-        pol = 1;
-        break;
-      }
-      if (c == '\n' || c == ' ') {
-        break;
-      }
-      V = V * 10 + (c - '0');
-    }
-    
-    if (c == '\n') {
-      break;
-    }
-    if (V == 0 && pol != 2 && pol != 1) {
-      pol = 0;
-    } else {
-      if (pol == 1) {
-        int a, b;
-        b = stk.Back();
-        stk.Pop();
-        a = stk.Back();
-        stk.Pop();
-        switch (c) {
-          case '+':
-            a += b;
-            break;
-          case '-':
-            a -= b;
-            break;
-          case '*':
-            a *= b;
-            break;
-          case '/':
-            a /= b;
-            break;
-          default:
-            break;
-        }
-        stk.Push(a);
-        pol = 0;
-      } else {
-        stk.Push(V);
-      }
-    }
-    
-  }
-  cout << stk.Back() << '\n';
-  return 0;
+  string arr;
+  getline(cin, arr);
+  cout << PolishEntry(stk, arr) << '\n';
 }
