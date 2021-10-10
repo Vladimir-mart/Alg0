@@ -13,19 +13,9 @@ void Split(vector<int>& arr1, vector<int>& arr2, vector<int>& arr_res) {
   int n1 = arr1.size();
   int n2 = arr2.size();
   for (int i = 0, iter = 0, iter2 = 0; i < (n1 + n2); i++) {
-    if ((iter2 < n2)) {
-      if ((arr2[iter2] < arr1[iter])) {
-        arr_res.push_back(arr2[iter2]);
-        iter2++;
-      } else {
-        if (iter < n1) {
-          arr_res.push_back(arr1[iter]);
-          iter++;
-        } else {
-          arr_res.push_back(arr2[iter2]);
-          iter2++;
-        }
-      }
+    if ((iter2 < n2) && (arr2[iter2] < arr1[iter])) {
+      arr_res.push_back(arr2[iter2]);
+      iter2++;
     } else {
       if (iter < n1) {
         arr_res.push_back(arr1[iter]);
