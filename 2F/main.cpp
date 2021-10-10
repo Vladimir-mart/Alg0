@@ -75,5 +75,7 @@ int main() {
   QuickSort(a, n);
   QuickSort(time, n);
   cout << Counting(time, a, n) << '\n';
+  delete[] a;
+  delete[] time;
   return 0;
 }
