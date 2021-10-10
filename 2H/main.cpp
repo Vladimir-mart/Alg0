@@ -1,24 +1,24 @@
 #include <iostream>
 #include <vector>
 using std::vector;
-const int byte = 8;
-const int maxb = 255;
-int GetByte(long long number, size_t n) { return number >> (byte * n) & maxb; }
+const int kByte = 8;
+const int kMaxb = 255;
+int GetByte(long long number, size_t n) { return number >> (kByte * n) & kMaxb; }
 
-void Sort(vector<long long>& data, size_t size, const size_t n) {
-  size_t counters[maxb + 1];
-  for (size_t i = 0; i < maxb + 1; i++) {
+void Sort(vector<long long>& data, size_t size, const size_t kN) {
+  size_t counters[kMaxb + 1];
+  for (size_t i = 0; i < kMaxb + 1; i++) {
     counters[i] = 0;
   }
   for (size_t i = 0; i < size; i++) {
-    counters[GetByte(data[i], n)]++;
+    counters[GetByte(data[i], kN)]++;
   }
-  for (size_t i = 1; i < maxb + 1; i++) {
+  for (size_t i = 1; i < kMaxb + 1; i++) {
     counters[i] += counters[i - 1];
   }
   long long* tmp = new long long[size];
   for (size_t i = size - 1;; i--) {
-    tmp[--counters[GetByte(data[i], n)]] = data[i];
+    tmp[--counters[GetByte(data[i], kN)]] = data[i];
     if (i == 0) {
       break;
     }
