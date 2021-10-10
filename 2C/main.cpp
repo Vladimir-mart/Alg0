@@ -49,6 +49,7 @@ int main() {
   for (unsigned int i = 0; i < arr_res.size(); ++i) {
     cout << arr_res[i] << " ";
   }
+  arr_res.clear();
   arr1.clear();
   arr2.clear();
   cout << '\n';
