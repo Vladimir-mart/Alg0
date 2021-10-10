@@ -44,11 +44,11 @@ int FindOrderStatistic(vector<int>& array, int k) {
     }
   }
 }
-const int an = 4321;
-const int bn = 123;
-const int cn = 45;
-const int dn = 10;
-const int en = 7;
+const int kAn = 4321;
+const int kBn = 123;
+const int kCn = 45;
+const int kDn = 10;
+const int kEn = 7;
 int main() {
   int n;
   cin >> n;
@@ -61,7 +61,7 @@ int main() {
     arr.push_back(c);
   }
   for (int i = 2; i < n; i++) {
-    c = (int)(arr[i - 1] * bn + arr[i - 2] * cn) % (int)(pow(dn, en) + an);
+    c = (int)(arr[i - 1] * kBn + arr[i - 2] * kCn) % (int)(pow(kDn, kEn) + kAn);
     arr.push_back(c);
   }
   if (k == 2) {
