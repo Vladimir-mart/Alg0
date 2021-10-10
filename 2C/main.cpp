@@ -12,17 +12,22 @@ using std::vector;
 void Split(vector<int>& arr1, vector<int>& arr2, vector<int>& arr_res) {
   int n1 = arr1.size();
   int n2 = arr2.size();
-  for (int i = 0, iter = 0, iter2 = 0; i < (n1 + n2); i++) {
+  int nres = n1 + n2;
+  for (int i = 0, iter = 0, iter2 = 0; i < nres; i++) {
     if ((iter2 < n2) && (arr2[iter2] < arr1[iter])) {
       arr_res.push_back(arr2[iter2]);
       iter2++;
     } else {
       if (iter < n1) {
         arr_res.push_back(arr1[iter]);
-        ;
         iter++;
+        if (iter == n1) {  // all because of valgrind
+          iter--;
+          n1--;
+        }
       } else {
         arr_res.push_back(arr2[iter2]);
+
         iter2++;
       }
     }
