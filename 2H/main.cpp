@@ -3,7 +3,9 @@
 using std::vector;
 const int kByte = 8;
 const int kMaxb = 255;
-int GetByte(long long number, size_t n) { return number >> (kByte * n) & kMaxb; }
+int GetByte(long long number, size_t n) {
+  return number >> (kByte * n) & kMaxb;
+}
 
 void Sort(vector<long long>& data, size_t size, const size_t kN) {
   size_t counters[kMaxb + 1];
