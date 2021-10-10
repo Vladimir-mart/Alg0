@@ -50,5 +50,8 @@ int main() {
     arr2.push_back(temp_arr);
   }
   Split(arr1, arr2, nres, arr_res);
+  arr1.clear();
+  arr2.clear();
+  arr_res.clear();
   cout << '\n';
 }
