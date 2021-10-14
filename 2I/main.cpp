@@ -165,3 +165,4 @@ int main() {
   }
   cout << Maximum(coord, n, k) << '\n';
 }
+//deletions?
