@@ -32,10 +32,10 @@ void QuickSort(vector<T>& mas, int left, int right) {
 
   if (left < j) {
     QuickSort(mas, left, j);
-  } 
+  }
   if (i < right) {
     QuickSort(mas, i, right);
-  } 
+  }
 }
 
 int main() {
