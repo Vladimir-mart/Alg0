@@ -8,7 +8,8 @@ using std::deque;
 using std::string;
 using std::swap;
 
-int InsertSearch(deque<int>& lol, int number, int iter1) {
+template <typename T>
+int InsertSearch(deque<T>& lol, int number, int iter1) {
   int ret;
   if (lol[0] >= number) {
     lol.push_front(number);
@@ -34,7 +35,8 @@ int InsertSearch(deque<int>& lol, int number, int iter1) {
   return ret;
 }
 
-int Insert(deque<int>& lol, int n, const string kRequest) {
+template <typename T>
+int Insert(deque<T>& lol, int n, const string kRequest) {
   if (kRequest == "insert") {
     int number;
     cin >> number;
@@ -64,7 +66,8 @@ int Insert(deque<int>& lol, int n, const string kRequest) {
   return n;
 }
 
-int Requests(deque<int>& lol, int n, const string kRequest) {
+template <typename T>
+int Requests(deque<T>& lol, int n, const string kRequest) {
   if (kRequest == "clear") {
     cout << "ok" << '\n';
     lol.clear();
