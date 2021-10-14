@@ -44,6 +44,9 @@ int Insert(deque<T>& lol, int n, const string kRequest) {
     while (true) {
       if (lol.empty() || lol.size() == 1) {
         lol.push_back(number);
+        if (lol.size() == 1) {
+          break;
+        }
         if (lol[1] <= lol[0] && lol.size() == 2) {
           swap(lol[1], lol[0]);
         }
@@ -103,8 +106,12 @@ int main() {
   string request;
   while (n != 0) {
     cin >> request;
-    n = Insert(lol, n, request);
-    n = Requests(lol, n, request);
+    if (request == "insert" || request == "size") {
+      n = Insert(lol, n, request);
+    } else {
+      n = Requests(lol, n, request);
+    }
   }
+  lol.clear();
   return 0;
 }
