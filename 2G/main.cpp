@@ -34,8 +34,8 @@ int InsertSearch(deque<int>& lol, int number, int iter1) {
   return ret;
 }
 
-int Insert(deque<int>& lol, int n, const string request) {
-  if (request == "insert") {
+int Insert(deque<int>& lol, int n, const string kRequest) {
+  if (kRequest == "insert") {
     int number;
     cin >> number;
     int iter1 = 1;
@@ -56,7 +56,7 @@ int Insert(deque<int>& lol, int n, const string request) {
     n--;
     return n;
   }
-  if (request == "size") {
+  if (kRequest == "size") {
     cout << lol.size() << '\n';
     n--;
     return n;
@@ -64,26 +64,26 @@ int Insert(deque<int>& lol, int n, const string request) {
   return n;
 }
 
-int Requests(deque<int>& lol, int n, const string request) {
-  if (request == "clear") {
+int Requests(deque<int>& lol, int n, const string kRequest) {
+  if (kRequest == "clear") {
     cout << "ok" << '\n';
     lol.clear();
     n--;
     return n;
   }
   if (!lol.empty()) {
-    if (request == "extract_max") {
+    if (kRequest == "extract_max") {
       cout << lol[lol.size() - 1] << '\n';
       lol.pop_back();
     }
-    if (request == "get_max") {
+    if (kRequest == "get_max") {
       cout << lol[lol.size() - 1] << '\n';
     }
-    if (request == "extract_min") {
+    if (kRequest == "extract_min") {
       cout << lol[0] << '\n';
       lol.pop_front();
     }
-    if (request == "get_min") {
+    if (kRequest == "get_min") {
       cout << lol[0] << '\n';
     }
   } else {
