@@ -61,11 +61,6 @@ int Insert(deque<T>& lol, int n, const string kRequest) {
     n--;
     return n;
   }
-  if (kRequest == "size") {
-    cout << lol.size() << '\n';
-    n--;
-    return n;
-  }
   return n;
 }
 
@@ -106,10 +101,15 @@ int main() {
   string request;
   while (n != 0) {
     cin >> request;
-    if (request == "insert" || request == "size") {
+    if (request == "insert") {
       n = Insert(lol, n, request);
     } else {
-      n = Requests(lol, n, request);
+      if (request == "size") {
+        cout << lol.size() << '\n';
+        n--;
+      } else {
+        n = Requests(lol, n, request);
+      }
     }
   }
   lol.clear();
