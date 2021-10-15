@@ -1,17 +1,18 @@
-#include <math.h>
-
 #include <cmath>
 #include <deque>
 #include <iostream>
 #include <stack>
 #include <vector>
+
 using std::cin;
 using std::cout;
 using std::deque;
 using std::stack;
 using std::swap;
 using std::vector;
-int HFValg(vector<int> arr, unsigned int iter) {
+
+template <typename T>
+int HFValg(vector<T> arr, unsigned int iter) {
   int ret;
   if (iter == arr.size()) {
     ret = arr[iter - 1];
@@ -20,8 +21,10 @@ int HFValg(vector<int> arr, unsigned int iter) {
   }
   return ret;
 }
-vector<int> Split(vector<int> arr1, vector<int> arr2) {
-  vector<int> arr_res;
+
+template <typename T>
+vector<T> Split(vector<T> arr1, vector<int> arr2) {
+  vector<T> arr_res;
   unsigned int nres = arr1.size() + arr2.size();
   unsigned int iter = 0;
   unsigned int iter2 = 0;
@@ -45,6 +48,7 @@ vector<int> Split(vector<int> arr1, vector<int> arr2) {
   }
   return arr_res;
 }
+
 int main() {
   int n_over;
   cin >> n_over;
