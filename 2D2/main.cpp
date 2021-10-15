@@ -1,7 +1,12 @@
 #include <deque>
 #include <iostream>
 #include <vector>
-using namespace std;
+
+using std::cin;
+using std::cout;
+using std::vector;
+using std::swap;
+using std::deque;
 
 template <typename T>
 class BinaryHeap {
