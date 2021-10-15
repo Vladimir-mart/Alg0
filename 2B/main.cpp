@@ -9,7 +9,7 @@ using std::cout;
 using std::vector;
 
 template <typename T>
-size_t Partition(std::vector<T>& vec, size_t left, size_t right) {
+size_t Partition(vector<T>& vec, size_t left, size_t right) {
   int mid = vec[(left + right) / 2];
   size_t i = left;
   size_t j = right;
