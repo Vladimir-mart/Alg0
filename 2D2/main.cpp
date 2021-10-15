@@ -4,8 +4,8 @@
 
 using std::cin;
 using std::cout;
-using std::vector;
 using std::swap;
+using std::vector;
 using std::deque;
 
 template <typename T>
