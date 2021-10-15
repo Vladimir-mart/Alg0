@@ -4,9 +4,9 @@
 
 using std::cin;
 using std::cout;
+using std::deque;
 using std::swap;
 using std::vector;
-using std::deque;
 
 template <typename T>
 class BinaryHeap {
@@ -128,7 +128,7 @@ template <typename T>
 BinaryHeap<T>::~BinaryHeap() {}
 
 template <typename T>
-vector<int> Split(vector<T> arr1, vector<T> arr2) {
+vector<int> Merge(vector<T> arr1, vector<T> arr2) {
   vector<T> arr_res;
   int nres = arr1.size() + arr2.size();
   BinaryHeap<T> ls;
@@ -150,7 +150,7 @@ vector<int> Split(vector<T> arr1, vector<T> arr2) {
 int main() {
   int n_over;
   cin >> n_over;
-  deque<vector<int>> dque_vec;
+  deque<vector<int>> merge_grid;
   for (int j = 0; j < n_over; j++) {
     int n1;
     cin >> n1;
@@ -160,17 +160,17 @@ int main() {
       cin >> temp_arr1;
       arr1.push_back(temp_arr1);
     }
-    dque_vec.push_front(arr1);
+    merge_grid.push_front(arr1);
   }
-  while (dque_vec.size() != 1) {
-    dque_vec.push_back(Split(dque_vec[0], dque_vec[1]));
-    dque_vec.pop_front();
-    dque_vec.pop_front();
+  while (merge_grid.size() != 1) {
+    merge_grid.push_back(Merge(merge_grid[0], merge_grid[1]));
+    merge_grid.pop_front();
+    merge_grid.pop_front();
   }
-  for (unsigned int i = 0; i < dque_vec[0].size(); i++) {
-    cout << dque_vec[0][i] << " ";
+  for (unsigned int i = 0; i < merge_grid[0].size(); i++) {
+    cout << merge_grid[0][i] << " ";
   }
   cout << '\n';
-  dque_vec.clear();
+  merge_grid.clear();
   return 0;
 }
