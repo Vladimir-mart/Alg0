@@ -1,15 +1,16 @@
-#include <math.h>
-
 #include <cmath>
 #include <iostream>
 #include <stack>
 #include <vector>
+
 using std::cin;
 using std::cout;
 using std::stack;
 using std::swap;
 using std::vector;
-void Split(vector<int>& arr1, vector<int>& arr2, vector<int>& arr_res) {
+
+template <typename T>
+void Merge(vector<T>& arr1, vector<T>& arr2, vector<T>& arr_res) {
   int n1 = arr1.size();
   int n2 = arr2.size();
   int nres = n1 + n2;
@@ -33,6 +34,7 @@ void Split(vector<int>& arr1, vector<int>& arr2, vector<int>& arr_res) {
     }
   }
 }
+
 int main() {
   int n1 = 0;
   vector<int> arr1;
@@ -50,12 +52,9 @@ int main() {
     cin >> temp_arr;
     arr2.push_back(temp_arr);
   }
-  Split(arr1, arr2, arr_res);
+  Merge(arr1, arr2, arr_res);
   for (unsigned int i = 0; i < arr_res.size(); ++i) {
     cout << arr_res[i] << " ";
   }
-  arr_res.clear();
-  arr1.clear();
-  arr2.clear();
   cout << '\n';
 }
