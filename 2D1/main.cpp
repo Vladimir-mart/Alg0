@@ -13,17 +13,17 @@ using std::vector;
 
 template <typename T>
 int HFValg(vector<T> arr, unsigned int iter) {
-  int ret;
+  int jump_control;
   if (iter == arr.size()) {
-    ret = arr[iter - 1];
+    jump_control = arr[iter - 1];
   } else {
-    ret = arr[iter];
+    jump_control = arr[iter];
   }
-  return ret;
+  return jump_control;
 }
 
 template <typename T>
-vector<T> Split(vector<T> arr1, vector<int> arr2) {
+vector<T> Merge(vector<T> arr1, vector<int> arr2) {
   vector<T> arr_res;
   unsigned int nres = arr1.size() + arr2.size();
   unsigned int iter = 0;
@@ -52,7 +52,7 @@ vector<T> Split(vector<T> arr1, vector<int> arr2) {
 int main() {
   int n_over;
   cin >> n_over;
-  deque<vector<int>> dque_vec;
+  deque<vector<int>> merge_grid;
   for (int j = 0; j < n_over; j++) {
     int n1;
     cin >> n1;
@@ -62,15 +62,15 @@ int main() {
       cin >> temp_arr1;
       arr1.push_back(temp_arr1);
     }
-    dque_vec.push_front(arr1);
+    merge_grid.push_front(arr1);
   }
-  while (dque_vec.size() != 1) {
-    dque_vec.push_back(Split(dque_vec[0], dque_vec[1]));
-    dque_vec.pop_front();
-    dque_vec.pop_front();
+  while (merge_grid.size() != 1) {
+    merge_grid.push_back(Merge(merge_grid[0], merge_grid[1]));
+    merge_grid.pop_front();
+    merge_grid.pop_front();
   }
-  for (unsigned int i = 0; i < dque_vec[0].size(); i++) {
-    cout << dque_vec[0][i] << " ";
+  for (unsigned int i = 0; i < merge_grid[0].size(); i++) {
+    cout << merge_grid[0][i] << " ";
   }
   cout << '\n';
 }
