@@ -1,15 +1,19 @@
 #include <cmath>
 #include <iostream>
 #include <stack>
+#include <vector>
+
 using std::cin;
 using std::cout;
 using std::stack;
 using std::swap;
+using std::vector;
 
-void QuickSort(int mas[], int size) {
-  int i = 0;
-  int j = size - 1;
-  int mid = mas[size / 2];
+template <typename T>
+void QuickSort(vector<T>& mas, int left, int right) {
+  int i = left;
+  int j = right;
+  int mid = mas[(i + j) / 2];
   do {
     while (mas[i] < mid) {
       i++;
@@ -25,24 +29,27 @@ void QuickSort(int mas[], int size) {
       j--;
     }
   } while (i <= j);
-  if (j > 0) {
-    QuickSort(mas, j + 1);
+
+  if (left < j) {
+    QuickSort(mas, left, j);
   }
-  if (i < size) {
-    QuickSort(&mas[i], size - i);
+  if (i < right) {
+    QuickSort(mas, i, right);
   }
 }
+
 int main() {
   int n;
   cin >> n;
-  int* a = new int[n];
+  vector<int> a;
+  int elem;
   for (int i = 0; i < n; i++) {
-    cin >> a[i];
+    cin >> elem;
+    a.push_back(elem);
   }
-  QuickSort(a, n);
+  QuickSort(a, 0, a.size() - 1);
   for (int i = 0; i < n; i++) {
     cout << a[i] << " ";
   }
-  delete[] a;
   return 0;
 }
