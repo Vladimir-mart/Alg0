@@ -1,7 +1,13 @@
 #include <iostream>
 #include <vector>
-using namespace std;
 
+using std::cin;
+using std::cout;
+using std::string;
+using std::swap;
+using std::vector;
+
+template <typename T>
 class BinaryHeap {
  public:
   BinaryHeap(/* args */);
@@ -13,17 +19,18 @@ class BinaryHeap {
   void Clear();            //+
   void Show();
   ~BinaryHeap();
-  vector<int> a;
+  vector<T> a;
 
  private:
-  void SiftDown(int index);             //+
-  void SiftUp(int index);               //+
+  void SiftDown(unsigned int index);    //+
+  void SiftUp(unsigned int index);      //+
   static int GetLeftChild(int index);   //+
   static int GetRightChild(int index);  //+
   static int GetPerent(int index);      //+
 };
 
-void BinaryHeap::Show() {
+template <typename T>
+void BinaryHeap<T>::Show() {
   cout << " Show ";
   for (unsigned int i = 0; i < a.size(); i++) {
     cout << a[i] << " ";
@@ -31,15 +38,28 @@ void BinaryHeap::Show() {
   cout << '\n';
 }
 
-void BinaryHeap::Clear() { a.clear(); }
+template <typename T>
+void BinaryHeap<T>::Clear() {
+  a.clear();
+}
 
-int BinaryHeap::GetMin() { return a[0]; }
+template <typename T>
+int BinaryHeap<T>::GetMin() {
+  return a[0];
+}
 
-size_t BinaryHeap::Size() const { return a.size(); }
+template <typename T>
+size_t BinaryHeap<T>::Size() const {
+  return a.size();
+}
 
-bool BinaryHeap::IsEmpty() const { return !a.empty(); }
+template <typename T>
+bool BinaryHeap<T>::IsEmpty() const {
+  return !a.empty();
+}
 
-void BinaryHeap::Insert(int value) {
+template <typename T>
+void BinaryHeap<T>::Insert(int value) {
   if (a.size() == 1) {
     if (a[0] == 0) {
       a[0] = value;
@@ -50,20 +70,31 @@ void BinaryHeap::Insert(int value) {
   SiftUp(a.size() - 1);
 }
 
-int BinaryHeap::GetPerent(int index) { return (index - 1) / 2; }
+template <typename T>
+int BinaryHeap<T>::GetPerent(int index) {
+  return (index - 1) / 2;
+}
 
-int BinaryHeap::GetLeftChild(int index) { return 2 * index + 1; }
+template <typename T>
+int BinaryHeap<T>::GetLeftChild(int index) {
+  return 2 * index + 1;
+}
 
-int BinaryHeap::GetRightChild(int index) { return 2 * index + 2; }
+template <typename T>
+int BinaryHeap<T>::GetRightChild(int index) {
+  return 2 * index + 2;
+}
 
-void BinaryHeap::Extractmin() {
+template <typename T>
+void BinaryHeap<T>::Extractmin() {
   swap(a[0], a[a.size() - 1]);
   a.pop_back();
 
   SiftDown(0);
 }
 
-void BinaryHeap::SiftUp(int index) {
+template <typename T>
+void BinaryHeap<T>::SiftUp(unsigned int index) {
   int perent = GetPerent(index);
   while (perent >= 0 && a[perent] > a[index]) {
     swap(a[perent], a[index]);
@@ -71,9 +102,10 @@ void BinaryHeap::SiftUp(int index) {
     perent = GetPerent(index);
   }
 }
-void BinaryHeap::SiftDown(int i) {
-  while ((2 * i + 1) <
-         (int)a.size()) {  // heapSize — количество элементов в куче
+
+template <typename T>
+void BinaryHeap<T>::SiftDown(unsigned int i) {
+  while ((2 * i + 1) < a.size()) {  // heapSize — количество элементов в куче
     int left = GetLeftChild(i);    // left — левый сын
     int right = GetRightChild(i);  // right — правый сын
     int j = left;
@@ -88,11 +120,34 @@ void BinaryHeap::SiftDown(int i) {
   }
 }
 
-BinaryHeap::BinaryHeap(/* args */) {}
+template <typename T>
+BinaryHeap<T>::BinaryHeap(/* args */) {}
 
-BinaryHeap::~BinaryHeap() {}
+template <typename T>
+BinaryHeap<T>::~BinaryHeap() {}
 
-void HeapQueries(BinaryHeap& ls, const string& request) {
+template <typename T>
+vector<int> Split(vector<T> arr1, vector<T> arr2) {
+  vector<T> arr_res;
+  int nres = arr1.size() + arr2.size();
+  BinaryHeap<T> ls;
+  for (unsigned int i = 0; i < arr1.size(); i++) {
+    ls.Insert(arr1[i]);
+  }
+  for (unsigned int i = 0; i < arr2.size(); i++) {
+    ls.Insert(arr2[i]);
+  }
+  for (int i = 0; i < nres; i++) {
+    // cout << ls.GetMin() << "+++" << '\n';
+    arr_res.push_back(ls.GetMin());
+    ls.Extractmin();
+  }
+  ls.Clear();
+  return arr_res;
+}
+
+template <typename T>
+void HeapQueries(BinaryHeap<T>& ls, const string& request) {
   if (request == "insert") {
     int number;
     cin >> number;
@@ -123,7 +178,7 @@ void HeapQueries(BinaryHeap& ls, const string& request) {
 }
 
 int main() {
-  BinaryHeap heap;
+  BinaryHeap<int> heap;
   long long n;
   cin >> n;
   string request;
