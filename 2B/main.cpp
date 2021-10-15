@@ -3,10 +3,13 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+
 using std::cin;
 using std::cout;
 using std::vector;
-size_t Partition(std::vector<int>& vec, size_t left, size_t right) {
+
+template <typename T>
+size_t Partition(std::vector<T>& vec, size_t left, size_t right) {
   int mid = vec[(left + right) / 2];
   size_t i = left;
   size_t j = right;
@@ -25,7 +28,9 @@ size_t Partition(std::vector<int>& vec, size_t left, size_t right) {
 
   return j;
 }
-int FindOrderStatistic(vector<int>& array, int k) {
+
+template <typename T>
+int FindOrderStatistic(vector<T>& array, int k) {
   int left = 0;
   int right = array.size() - 1;
   int mid;
@@ -44,11 +49,13 @@ int FindOrderStatistic(vector<int>& array, int k) {
     }
   }
 }
+
 const int kAn = 4321;
 const int kBn = 123;
 const int kCn = 45;
 const int kDn = 10;
 const int kEn = 7;
+
 int main() {
   int n;
   cin >> n;
