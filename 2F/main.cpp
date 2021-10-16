@@ -22,14 +22,11 @@ void QuickSort(vector<T>& mas, int left, int right) {
       j--;
     }
     if (i <= j) {
-      int tmp = mas[i];
-      mas[i] = mas[j];
-      mas[j] = tmp;
+      swap(mas[i], mas[j]);
       i++;
       j--;
     }
   } while (i <= j);
-
   if (left < j) {
     QuickSort(mas, left, j);
   }
@@ -70,7 +67,7 @@ int main() {
   for (int i = 0, j = 0; i < n; i++, j++) {
     cin >> temp_b >> temp_e;
     time_begin.push_back(temp_b);
-    time_end.push_back(time_end[i] + temp_e);
+    time_end.push_back(time_begin[i] + temp_e);
   }
   QuickSort(time_begin, 0, n - 1);
   QuickSort(time_end, 0, n - 1);
