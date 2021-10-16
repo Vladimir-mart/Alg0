@@ -1,13 +1,12 @@
 #include <iostream>
 #include <vector>
 
-using std::vector;
 using std::cin;
 using std::cout;
+using std::vector;
 
 const int kByte = 8;
 const int kMaxb = 255;
-
 
 int GetByte(long long number, unsigned int n) {
   return number >> (kByte * n) & kMaxb;
