@@ -131,7 +131,7 @@ struct Point {
   unsigned int y;
 };
 
-const double k_pr = 20.;
+const double kPr = 20.;
 
 int main() {
   BinaryHeap<int> heap;
@@ -151,7 +151,7 @@ int main() {
     n2 = heap.GetMin();
     heap.Extractmin();
     heap.Insert(n1 + n2);
-    res += ((n1 / k_pr) + (n2 / k_pr));
+    res += ((n1 / kPr) + (n2 / kPr));
   }
   cout << std::fixed << std::showpoint;
   cout << std::setprecision(2);
