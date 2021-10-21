@@ -11,15 +11,14 @@ template <typename T>
 class BinaryHeap {
  public:
   BinaryHeap(/* args */);
-  void Extractmin();       //+
-  int GetMin();            //+
-  void Insert(int value);  //+
-  bool IsEmpty() const;    //+
-  size_t Size() const;     //+
-  void Clear();            //+
+  void Extractmin();            //+
+  const T GetMin();             //+
+  void Insert(const T& value);  //+
+  bool IsEmpty() const;         //+
+  size_t Size() const;          //+
+  void Clear();                 //+
   void Show();
   ~BinaryHeap();
-  vector<T> a;
 
  private:
   void SiftDown(unsigned int index);    //+
@@ -27,6 +26,7 @@ class BinaryHeap {
   static int GetLeftChild(int index);   //+
   static int GetRightChild(int index);  //+
   static int GetPerent(int index);      //+
+  vector<T> a;
 };
 
 template <typename T>
@@ -44,7 +44,7 @@ void BinaryHeap<T>::Clear() {
 }
 
 template <typename T>
-int BinaryHeap<T>::GetMin() {
+const T BinaryHeap<T>::GetMin() {
   return a[0];
 }
 
@@ -59,7 +59,7 @@ bool BinaryHeap<T>::IsEmpty() const {
 }
 
 template <typename T>
-void BinaryHeap<T>::Insert(int value) {
+void BinaryHeap<T>::Insert(const T& value) {
   if (a.size() == 1) {
     if (a[0] == 0) {
       a[0] = value;
@@ -131,6 +131,8 @@ struct Point {
   unsigned int y;
 };
 
+const double k_pr = 20.;
+
 int main() {
   BinaryHeap<int> heap;
   long long n;
@@ -149,8 +151,7 @@ int main() {
     n2 = heap.GetMin();
     heap.Extractmin();
     heap.Insert(n1 + n2);
-    res += (n1 / (double)(2 * 2 * 2 * 2 + 2 + 2) +
-            n2 / (double)(2 * 2 * 2 * 2 + 2 + 2));
+    res += ((n1 / k_pr) + (n2 / k_pr));
   }
   cout << std::fixed << std::showpoint;
   cout << std::setprecision(2);
