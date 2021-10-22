@@ -12,7 +12,7 @@ class BinaryHeap {
  public:
   BinaryHeap(/* args */);
   void Extractmin();            //+
-  const T GetMin();             //+
+  const T& GetMin();            //+
   void Insert(const T& value);  //+
   bool IsEmpty() const;         //+
   size_t Size() const;          //+
@@ -44,7 +44,7 @@ void BinaryHeap<T>::Clear() {
 }
 
 template <typename T>
-const T BinaryHeap<T>::GetMin() {
+const T& BinaryHeap<T>::GetMin() {
   return heap_value_[0];
 }
 
@@ -105,7 +105,8 @@ void BinaryHeap<T>::SiftUp(unsigned int index) {
 
 template <typename T>
 void BinaryHeap<T>::SiftDown(unsigned int i) {
-  while ((2 * i + 1) < heap_value_.size()) {  // heapSize — количество элементов в куче
+  while ((2 * i + 1) <
+         heap_value_.size()) {  // heapSize — количество элементов в куче
     unsigned int left = GetLeftChild(i);    // left — левый сын
     unsigned int right = GetRightChild(i);  // right — правый сын
     unsigned int j = left;
