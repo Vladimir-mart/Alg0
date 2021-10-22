@@ -12,8 +12,7 @@ int GetByte(long long number, unsigned int n) {
   return number >> (kByte * n) & kMaxb;
 }
 
-template <typename T>
-void Sort(vector<T>& data, unsigned int size, const unsigned int kN) {
+void Sort(vector<long long>& data, unsigned int size, const unsigned int kN) {
   unsigned int counters[kMaxb + 1];
   for (unsigned int i = 0; i < kMaxb + 1; i++) {
     counters[i] = 0;
@@ -37,8 +36,7 @@ void Sort(vector<T>& data, unsigned int size, const unsigned int kN) {
   delete[] tmp;
 }
 
-template <typename T>
-void LSDSort(vector<T>& data, unsigned int size) {
+void LSDSort(vector<long long>& data, unsigned int size) {
   unsigned int total_bytes = sizeof(long long);
 
   for (unsigned int byte = 0; byte < total_bytes; byte++) {
