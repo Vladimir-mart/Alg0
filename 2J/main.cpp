@@ -26,48 +26,48 @@ class BinaryHeap {
   static int GetLeftChild(int index);   //+
   static int GetRightChild(int index);  //+
   static int GetPerent(int index);      //+
-  vector<T> a;
+  vector<T> heap_value_;
 };
 
 template <typename T>
 void BinaryHeap<T>::Show() {
   cout << " Show ";
-  for (unsigned int i = 0; i < a.size(); i++) {
-    cout << a[i] << " ";
+  for (unsigned int i = 0; i < heap_value_.size(); i++) {
+    cout << heap_value_[i] << " ";
   }
   cout << '\n';
 }
 
 template <typename T>
 void BinaryHeap<T>::Clear() {
-  a.clear();
+  heap_value_.clear();
 }
 
 template <typename T>
 const T BinaryHeap<T>::GetMin() {
-  return a[0];
+  return heap_value_[0];
 }
 
 template <typename T>
 size_t BinaryHeap<T>::Size() const {
-  return a.size();
+  return heap_value_.size();
 }
 
 template <typename T>
 bool BinaryHeap<T>::IsEmpty() const {
-  return !a.empty();
+  return !heap_value_.empty();
 }
 
 template <typename T>
 void BinaryHeap<T>::Insert(const T& value) {
-  if (a.size() == 1) {
-    if (a[0] == 0) {
-      a[0] = value;
+  if (heap_value_.size() == 1) {
+    if (heap_value_[0] == 0) {
+      heap_value_[0] = value;
       return;
     }
   }
-  a.push_back(value);
-  SiftUp(a.size() - 1);
+  heap_value_.push_back(value);
+  SiftUp(heap_value_.size() - 1);
 }
 
 template <typename T>
@@ -87,8 +87,8 @@ int BinaryHeap<T>::GetRightChild(int index) {
 
 template <typename T>
 void BinaryHeap<T>::Extractmin() {
-  swap(a[0], a[a.size() - 1]);
-  a.pop_back();
+  swap(heap_value_[0], heap_value_[heap_value_.size() - 1]);
+  heap_value_.pop_back();
 
   SiftDown(0);
 }
@@ -96,8 +96,8 @@ void BinaryHeap<T>::Extractmin() {
 template <typename T>
 void BinaryHeap<T>::SiftUp(unsigned int index) {
   int perent = GetPerent(index);
-  while (perent >= 0 && a[perent] > a[index]) {
-    swap(a[perent], a[index]);
+  while (perent >= 0 && heap_value_[perent] > heap_value_[index]) {
+    swap(heap_value_[perent], heap_value_[index]);
     index = perent;
     perent = GetPerent(index);
   }
@@ -105,17 +105,17 @@ void BinaryHeap<T>::SiftUp(unsigned int index) {
 
 template <typename T>
 void BinaryHeap<T>::SiftDown(unsigned int i) {
-  while ((2 * i + 1) < a.size()) {  // heapSize — количество элементов в куче
-    int left = GetLeftChild(i);    // left — левый сын
-    int right = GetRightChild(i);  // right — правый сын
-    int j = left;
-    if (right < (int)a.size() && a[right] < a[left]) {
+  while ((2 * i + 1) < heap_value_.size()) {  // heapSize — количество элементов в куче
+    unsigned int left = GetLeftChild(i);    // left — левый сын
+    unsigned int right = GetRightChild(i);  // right — правый сын
+    unsigned int j = left;
+    if (right < heap_value_.size() && heap_value_[right] < heap_value_[left]) {
       j = right;
     }
-    if (a[i] <= a[j]) {
+    if (heap_value_[i] <= heap_value_[j]) {
       break;
     }
-    swap(a[i], a[j]);
+    swap(heap_value_[i], heap_value_[j]);
     i = j;
   }
 }
