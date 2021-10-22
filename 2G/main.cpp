@@ -9,17 +9,17 @@ using std::string;
 using std::swap;
 
 template <typename T>
-int InsertSearch(deque<T>& lol, int number, int iter1) {
+int InsertSearch(deque<T>& dq, int number, int iter1) {
   int ret;
-  if (lol[0] >= number) {
-    lol.push_front(number);
+  if (dq[0] >= number) {
+    dq.push_front(number);
     return -1;
   }
-  deque<int>::iterator it = lol.end();
+  deque<int>::iterator it = dq.end();
   if (*(it - 1) > number) {
-    if (iter1 <= (int)lol.size()) {
+    if (iter1 <= (int)dq.size()) {
       if (*(it - iter1) < number) {
-        it = lol.insert((it - iter1 + 1), number);
+        it = dq.insert((it - iter1 + 1), number);
         ret = -1;
       } else {
         iter1++;
@@ -29,30 +29,30 @@ int InsertSearch(deque<T>& lol, int number, int iter1) {
       return -1;
     }
   } else {
-    lol.push_back(number);
+    dq.push_back(number);
     return -1;
   }
   return ret;
 }
 
 template <typename T>
-int Insert(deque<T>& lol, int n, const string kRequest) {
+int Insert(deque<T>& dq, int n, const string kRequest) {
   if (kRequest == "insert") {
     int number;
     cin >> number;
     int iter1 = 1;
     while (true) {
-      if (lol.empty() || lol.size() == 1) {
-        lol.push_back(number);
-        if (lol.size() == 1) {
+      if (dq.empty() || dq.size() == 1) {
+        dq.push_back(number);
+        if (dq.size() == 1) {
           break;
         }
-        if (lol[1] <= lol[0] && lol.size() == 2) {
-          swap(lol[1], lol[0]);
+        if (dq[1] <= dq[0] && dq.size() == 2) {
+          swap(dq[1], dq[0]);
         }
         break;
       }
-      iter1 = InsertSearch(lol, number, iter1);
+      iter1 = InsertSearch(dq, number, iter1);
       if (iter1 == -1) {
         break;
       }
@@ -65,27 +65,27 @@ int Insert(deque<T>& lol, int n, const string kRequest) {
 }
 
 template <typename T>
-int Requests(deque<T>& lol, int n, const string kRequest) {
+int Requests(deque<T>& dq, int n, const string kRequest) {
   if (kRequest == "clear") {
     cout << "ok" << '\n';
-    lol.clear();
+    dq.clear();
     n--;
     return n;
   }
-  if (!lol.empty()) {
+  if (!dq.empty()) {
     if (kRequest == "extract_max") {
-      cout << lol[lol.size() - 1] << '\n';
-      lol.pop_back();
+      cout << dq[dq.size() - 1] << '\n';
+      dq.pop_back();
     }
     if (kRequest == "get_max") {
-      cout << lol[lol.size() - 1] << '\n';
+      cout << dq[dq.size() - 1] << '\n';
     }
     if (kRequest == "extract_min") {
-      cout << lol[0] << '\n';
-      lol.pop_front();
+      cout << dq[0] << '\n';
+      dq.pop_front();
     }
     if (kRequest == "get_min") {
-      cout << lol[0] << '\n';
+      cout << dq[0] << '\n';
     }
   } else {
     cout << "error" << '\n';
@@ -95,24 +95,24 @@ int Requests(deque<T>& lol, int n, const string kRequest) {
 }
 
 int main() {
-  deque<int> lol;
+  deque<int> dq;
   int n;
   cin >> n;
   string request;
   while (n != 0) {
     cin >> request;
     if (request == "insert") {
-      n = Insert(lol, n, request);
+      n = Insert(dq, n, request);
     } else {
       if (request == "size") {
-        cout << lol.size() << '\n';
+        cout << dq.size() << '\n';
         n--;
       } else {
-        n = Requests(lol, n, request);
+        n = Requests(dq, n, request);
       }
     }
   }
-  lol.clear();
+  dq.clear();
   return 0;
 }
 // тест
