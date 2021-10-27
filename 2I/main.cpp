@@ -54,7 +54,7 @@ class BinaryHeap {
   void SiftUp(unsigned int index);      //+
   static int GetLeftChild(int index);   //+
   static int GetRightChild(int index);  //+
-  static int GetPerent(int index);      //+
+  static int GetParent(int index);      //+
   vector<T> heap_value_;
 };
 
@@ -100,7 +100,7 @@ void BinaryHeap<T>::Insert(const T& value) {
 }
 
 template <typename T>
-int BinaryHeap<T>::GetPerent(int index) {
+int BinaryHeap<T>::GetParent(int index) {
   return (index - 1) / 2;
 }
 
@@ -124,11 +124,11 @@ void BinaryHeap<T>::Extractmin() {
 
 template <typename T>
 void BinaryHeap<T>::SiftUp(unsigned int index) {
-  int perent = GetPerent(index);
+  int perent = GetParent(index);
   while (perent >= 0 && heap_value_[perent] > heap_value_[index]) {
     swap(heap_value_[perent], heap_value_[index]);
     index = perent;
-    perent = GetPerent(index);
+    perent = GetParent(index);
   }
 }
 
