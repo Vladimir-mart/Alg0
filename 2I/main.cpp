@@ -54,7 +54,7 @@ class BinaryHeap {
   void SiftUp(unsigned int index);      //+
   static int GetLeftChild(int index);   //+
   static int GetRightChild(int index);  //+
-  static int GetPerent(int index);      //+
+  static int GetParent(int index);      //+
   vector<T> heap_value_;
 };
 
