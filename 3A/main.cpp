@@ -137,12 +137,11 @@ void DecTree<T>::SortQuick(Node<T>** pnodes, int left, int right) {
   } while (l <= r);
   if (r - left > 0) {
     SortQuick(pnodes, left, r + 1);
-  } 
+  }
   if (right - l > 0) {
     SortQuick(pnodes, l, right);
-  } 
+  }
 }
-
 
 int main(void) {
   DecTree<int>* mytree = new DecTree<int>();
