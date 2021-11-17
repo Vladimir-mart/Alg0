@@ -33,7 +33,7 @@ template <typename T>
 void TreeSegment<T>::Decision() {
   int n;
   cin >> n;
-  long long* arr = new long long[n+1];
+  long long* arr = new long long[n + 1];
   Node* tree_otr = nullptr;
   tree_otr = Build(0, n);
   for (int i = 0; i < n; ++i) {
@@ -58,6 +58,7 @@ void TreeSegment<T>::Decision() {
       ChangeOtr(tree_otr, l - 1, r, d);
     }
   }
+  delete[] arr;
 }
 
 template <typename T>
