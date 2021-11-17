@@ -7,15 +7,15 @@ using std::cout;
 using std::max;
 using std::min;
 
-const int kMax_size_n = 100001;
-const int kSp_tab = 17;
+const int kMaxsizen = 100001;
+const int kSptab = 17;
 // (2 ^ 17) > 100001
-int** mas = new int*[kMax_size_n];
-int* a = new int[kMax_size_n];
+int** mas = new int*[kMaxsizen];
+int* a = new int[kMaxsizen];
 
 void CreatingTable(int n) {
-  for (int i = 0; i < kMax_size_n; i++) {
-    mas[i] = new int[kSp_tab];
+  for (int i = 0; i < kMaxsizen; i++) {
+    mas[i] = new int[kSptab];
   }
   int i;
   int j;
@@ -33,10 +33,10 @@ void CreatingTable(int n) {
   }
 }
 
-const float help_for_log = 2.0;
+const float kHelpforlog = 2.0;
 
 int Requests(int i, int j) {
-  int k = (int)(log(1. * j - i + 1) / log(help_for_log));
+  int k = (int)(log(1. * j - i + 1) / log(kHelpforlog));
   int res = mas[i][k];
   if (a[mas[j - (1 << k) + 1][k]] < a[res]) {
     res = mas[j - (1 << k) + 1][k];
@@ -78,7 +78,7 @@ int main() {
   }
   cout << u << " " << v << " " << ans << '\n';
   delete[] a;
-  for (int i = 0; i < kMax_size_n; i++) {
+  for (int i = 0; i < kMaxsizen; i++) {
     delete[] mas[i];
   }
   delete[] mas;
