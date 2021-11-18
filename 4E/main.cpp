@@ -38,9 +38,9 @@ class TreeB {
 
 void TreeB::Update(long long new_val, long long idx1, long long idx2,
                    long long idx3) {
-  const long long n = tree_.size();
-  const long long m = tree_[0].size();
-  const long long l = tree_[0][0].size();
+  long long n = tree_.size();
+  long long m = tree_[0].size();
+  long long l = tree_[0][0].size();
   for (long long i = idx1; i < n; i = SequenceF(i)) {
     for (long long j = idx2; j < m; j = SequenceF(j)) {
       for (long long k = idx3; k < l; k = SequenceF(k)) {
