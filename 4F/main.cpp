@@ -42,7 +42,7 @@ int SegmentTree::RMQPub(long long left, long long right) {
 
 typename SegmentTree::Node SegmentTree::Merge(const Node& left,
                                               const Node& right) {
-  const int size = min(left.num_open, right.num_close);
+  int size = min(left.num_open, right.num_close);
   int open = left.num_open + right.num_open - size;
   int close = left.num_close + right.num_close - size;
   long long length = left.max_len + right.max_len + size * 2;
