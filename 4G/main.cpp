@@ -3,7 +3,7 @@
 using std::cin;
 using std::cout;
 
-const long long kMax = 2000000000;
+const long long max = 2000000000;
 
 class Dtree {
  public:
@@ -28,7 +28,21 @@ class Dtree {
   static void Update(Item* t);
   static void Merge(Item* l, Item* r, Item*& t);
   static void Split(Item* t, Item*& l, Item*& r, int pos);
+  static void Delete(Item* tree);
 };
+
+void Dtree::Delete(Item* tree) {
+  if (tree == nullptr) {
+    return;
+  }
+  if (tree->l != nullptr) {
+    Delete(tree->l);
+  }
+  if (tree->r != nullptr) {
+    Delete(tree->r);
+  }
+  delete tree;
+}
 
 Dtree::Dtree(/* args */) {}
 
@@ -38,7 +52,7 @@ int Dtree::Min(int x, int y) { return (x < y) ? x : y; }
 
 int Dtree::Cnt(Item* t) { return t != nullptr ? t->cnt : 0; }
 
-long long Dtree::GetMin(Item* t) { return t != nullptr ? t->min : kMax; }
+long long Dtree::GetMin(Item* t) { return t != nullptr ? t->min : max; }
 
 void Dtree::Update(Item* t) {
   if (t != nullptr) {
@@ -49,25 +63,29 @@ void Dtree::Update(Item* t) {
 }
 
 void Dtree::Merge(Item* l, Item* r, Item*& t) {
-  if ((l != nullptr) || (r != nullptr)) {
+  if (l == nullptr || r == nullptr) {
     t = l != nullptr ? l : r;
   } else if (l->priority > r->priority) {
     Merge(l->r, r, l->r), t = l;
   } else {
     Merge(l, r->l, r->l), t = r;
   }
+
   Update(t);
 }
 
 void Dtree::Split(Item* t, Item*& l, Item*& r, int pos) {
-  if (t != nullptr) {
+  if (t == nullptr) {
     return void(l = r = 0);
   }
   if (pos <= Cnt(t->l)) {
     Split(t->l, l, t->l, pos), r = t;
-  } else {
+  }
+
+  else {
     Split(t->r, t->r, r, pos - 1 - Cnt(t->l)), l = t;
   }
+
   Update(t);
 }
 
@@ -76,6 +94,7 @@ void Dtree::Solution() {
   char c;
   int i;
   int j;
+  Dtree dt;
   Item* t1 = nullptr;
   Item* t = nullptr;
   Item* t2 = nullptr;
@@ -83,20 +102,22 @@ void Dtree::Solution() {
   for (int k = 0; k < n; k++) {
     cin >> c >> i >> j;
     if (c == '+') {
-      Split(t, t1, t2, i);
-      Merge(t1, new Item(j), t1);
-      Merge(t1, t2, t);
+      dt.Split(t, t1, t2, i);
+      dt.Merge(t1, new Item(j), t1);
+      dt.Merge(t1, t2, t);
     } else {
-      Split(t, t, t1, i - 1);
-      Split(t1, t1, t2, j - i + 1);
+      dt.Split(t, t, t1, i - 1);
+      dt.Split(t1, t1, t2, j - i + 1);
       cout << t1->min << '\n';
-      Merge(t, t1, t);
-      Merge(t, t2, t);
+      dt.Merge(t, t1, t);
+      dt.Merge(t, t2, t);
     }
   }
+  Delete(t);
 }
 
 int main() {
   Dtree dt;
   dt.Solution();
+  return 0;
 }
