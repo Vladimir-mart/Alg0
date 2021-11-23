@@ -3,7 +3,7 @@
 using std::cin;
 using std::cout;
 
-const long long max = 2000000000;
+const long long kMax = 2000000000;
 
 class Dtree {
  public:
@@ -52,7 +52,7 @@ int Dtree::Min(int x, int y) { return (x < y) ? x : y; }
 
 int Dtree::Cnt(Item* t) { return t != nullptr ? t->cnt : 0; }
 
-long long Dtree::GetMin(Item* t) { return t != nullptr ? t->min : max; }
+long long Dtree::GetMin(Item* t) { return t != nullptr ? t->min : kMax; }
 
 void Dtree::Update(Item* t) {
   if (t != nullptr) {
