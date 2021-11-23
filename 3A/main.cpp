@@ -5,41 +5,40 @@ using std::cout;
 using std::swap;
 
 template <typename T>
-class Node {
- public:
-  T x, y, label;
-  Node* parent;
-  Node* left;
-  Node* right;
-
-  void Set(T xi, T yi, T labeli) {
-    x = xi;
-    y = -yi;
-    label = labeli;
-    parent = NULL;
-    left = NULL;
-    right = NULL;
-  }
-};
-
-template <typename T>
 class DecTree {
  public:
   DecTree();
   ~DecTree();
-  void Delete(Node<T>* root);
   void ResultsDisplay();
 
  private:
+  struct Node {
+  public:
+    T x, y, label;
+    Node* parent;
+    Node* left;
+    Node* right;
+  };
+  void Set(T xi, T yi, T labeli, Node s);
   int treeSize_;
-  Node<T>* nodes_;
-  Node<T>** ordered_;
-  Node<T>* root_;
+  Node* nodes_;
+  Node** ordered_;
+  Node* root_;
   int node_count_;
-
-  void SortQuick(Node<T>** pnodes, int left, int right);
+  void Delete(Node* root);
+  void SortQuick(Node** pnodes, int left, int right);
   void MakeTree();
 };
+
+template <typename T>
+void DecTree<T>::Set(T xi, T yi, T labeli, Node s) {
+  s.x = xi;
+  s.y = -yi;
+  s.label = labeli;
+  s.parent = NULL;
+  s.left = NULL;
+  s.right = NULL;
+}
 
 template <typename T>
 DecTree<T>::~DecTree() {
@@ -54,11 +53,11 @@ DecTree<T>::DecTree() {
   int b;
   node_count_ = 0;
   cin >> treeSize_;
-  nodes_ = new Node<T>[treeSize_];
-  ordered_ = new Node<T>*[treeSize_];
+  nodes_ = new Node[treeSize_];
+  ordered_ = new Node*[treeSize_];
   for (int i = 0; i < treeSize_; i++) {
     cin >> a >> b;
-    nodes_[node_count_].Set(a, b, node_count_ + 1);
+    Set(a, b, node_count_ + 1, nodes_[node_count_]);
     ordered_[node_count_] = nodes_ + node_count_;
     node_count_++;
   }
@@ -94,7 +93,7 @@ void DecTree<T>::ResultsDisplay() {
 
 template <typename T>
 void DecTree<T>::MakeTree() {
-  Node<T>* last = NULL;
+  Node* last = NULL;
   root_ = ordered_[0];
   last = root_;
   for (int i = 1; i < treeSize_; i++) {
@@ -119,10 +118,10 @@ void DecTree<T>::MakeTree() {
 }
 
 template <typename T>
-void DecTree<T>::SortQuick(Node<T>** pnodes, int left, int right) {
+void DecTree<T>::SortQuick(Node** pnodes, int left, int right) {
   int l = left;
   int r = right - 1;
-  Node<T>* p;
+  Node* p;
   p = pnodes[l + rand() % (right - left)];
   do {
     while (pnodes[l]->x < p->x) {
