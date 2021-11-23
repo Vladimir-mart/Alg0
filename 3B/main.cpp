@@ -4,38 +4,34 @@ using std::cin;
 using std::cout;
 
 template <typename T>
-struct Node {
-  T key;
-  Node* l;
-  Node* r;
-};
-
-template <typename T>
 class SplayT {
  public:
   SplayT() { head_ = nullptr; }
   ~SplayT() { Delete(head_); }
-  void Delete(Node<T>* rt);
-
-  Node<T>* GetHead();
-  Node<T>* NewNode(int key);
+  void SplayQ(SplayT& rt);
   void Insert(int key);
-  Node<T>* InsertT(Node<T>* rt, int d);
-
-  Node<T>* RightRotate(Node<T>* x);
-  Node<T>* LeftRotate(Node<T>* x);
-
-  int FindNext(Node<T>* rt, int next, int dif_nice = -1, int answer = -1);
-
-  void Search(int key);
-  Node<T>* Splay(Node<T>* rt, int key);
 
  private:
-  Node<T>* head_;
+  struct Node {
+    T key;
+    Node* l;
+    Node* r;
+  };
+  void Delete(Node* rt);
+  Node* InsertT(Node* rt, int d);
+  int FindNext(Node* rt, int next, int dif_nice = -1, int answer = -1);
+
+  void Search(int key);
+  Node* Splay(Node* rt, int key);
+  Node* RightRotate(Node* x);
+  Node* LeftRotate(Node* x);
+  Node* GetHead();
+  Node* NewNode(int key);
+  Node* head_;
 };
 
 template <typename T>
-Node<T>* SplayT<T>::Splay(Node<T>* rt, int key) {
+typename SplayT<T>::Node* SplayT<T>::Splay(Node* rt, int key) {
   if (rt == nullptr || rt->key == key) {
     return rt;
   }
@@ -73,7 +69,7 @@ void SplayT<T>::Search(int key) {
 }
 
 template <typename T>
-int SplayT<T>::FindNext(Node<T>* rt, int next, int dif_nice, int answer) {
+int SplayT<T>::FindNext(Node* rt, int next, int dif_nice, int answer) {
   if (rt == nullptr) {
     return answer;
   }
@@ -96,31 +92,31 @@ int SplayT<T>::FindNext(Node<T>* rt, int next, int dif_nice, int answer) {
 }
 
 template <typename T>
-Node<T>* SplayT<T>::LeftRotate(Node<T>* x) {
-  Node<T>* y = x->r;
+typename SplayT<T>::Node* SplayT<T>::LeftRotate(Node* x) {
+  Node* y = x->r;
   x->r = y->l;
   y->l = x;
   return y;
 }
 
 template <typename T>
-Node<T>* SplayT<T>::RightRotate(Node<T>* x) {
-  Node<T>* y = x->l;
+typename SplayT<T>::Node* SplayT<T>::RightRotate(Node* x) {
+  Node* y = x->l;
   x->l = y->r;
   y->r = x;
   return y;
 }
 
 template <typename T>
-Node<T>* SplayT<T>::NewNode(int key) {
-  Node<T>* node = new Node<T>();
+typename SplayT<T>::Node* SplayT<T>::NewNode(int key) {
+  Node* node = new Node();
   node->key = key;
   node->l = node->r = nullptr;
   return (node);
 }
 
 template <typename T>
-void SplayT<T>::Delete(Node<T>* rt) {
+void SplayT<T>::Delete(Node* rt) {
   if (rt != nullptr) {
     Delete(rt->l);
     Delete(rt->r);
@@ -129,7 +125,7 @@ void SplayT<T>::Delete(Node<T>* rt) {
 }
 
 template <typename T>
-Node<T>* SplayT<T>::GetHead() {
+typename SplayT<T>::Node* SplayT<T>::GetHead() {
   return head_;
 }
 
@@ -139,8 +135,8 @@ void SplayT<T>::Insert(int key) {
 }
 
 template <typename T>
-Node<T>* SplayT<T>::InsertT(Node<T>* rt, int d) {
-  Node<T>* temp = rt;
+typename SplayT<T>::Node* SplayT<T>::InsertT(Node* rt, int d) {
+  Node* temp = rt;
   if (temp == nullptr) {
     temp = NewNode(d);
     return temp;
@@ -163,10 +159,10 @@ Node<T>* SplayT<T>::InsertT(Node<T>* rt, int d) {
 
 const long long kDiv = 1000000000;
 
-int main() {
+template <typename T>
+void SplayT<T>::SplayQ(SplayT& rt) {
   int n;
   cin >> n;
-  SplayT<int> rt;
   int key;
   char sign;
   int key_answer;
@@ -188,5 +184,10 @@ int main() {
       cout << key_answer << "\n";
     }
   }
+}
+
+int main() {
+  SplayT<int> rt;
+  rt.SplayQ(rt);
   return 0;
 }
