@@ -9,36 +9,35 @@ using std::min;
 using std::string;
 
 template <typename T>
-class Node {
- public:
-  int h;
-  T elem;
-  Node* couple;
-  Node* l;
-  Node* r;
-};
-
-template <typename T>
 class AVLTree {
  public:
   ~AVLTree();
-  void Delete(Node<T>* root);
-  int Height(Node<T>* root);
-  Node<T>* NewNode(T elem);
-  Node<T>* InsertT(Node<T>* root, T elem);
   void Insert(T elem);
-
-  Node<T>* RightRotate(Node<T>* ty);
-  Node<T>* LeftRotate(Node<T>* tx);
-
-  int GetBalance(Node<T>* root);
-  Node<T>* GetHead();
-  Node<T>* BalanceRotate(Node<T>* root, int balance, T elem);
-  Node<T>* FindT(Node<T>* root, const T& elem);
-  Node<T>* Find(const T& elem);
+  void AvlQ(AVLTree<string>& avl1, AVLTree<string>& avl2);
 
  private:
-  Node<T>* head_ = nullptr;
+  struct Node {
+    int h;
+    T elem;
+    Node* couple;
+    Node* l;
+    Node* r;
+  };
+  void Binding(AVLTree<T>& tree1, AVLTree<T>& tree2, const T& val1,
+               const T& val2);
+  void Delete(Node* root);
+  int Height(Node* root);
+  Node* NewNode(T elem);
+  Node* InsertT(Node* root, T elem);
+  Node* RightRotate(Node* ty);
+  Node* LeftRotate(Node* tx);
+  int GetBalance(Node* root);
+  Node* GetHead();
+  Node* BalanceRotate(Node* root, int balance, T elem);
+  Node* FindT(Node* root, const T& elem);
+  Node* Find(const T& elem);
+  Node* PairSearch(AVLTree& t1, AVLTree& t2, const T& val);
+  Node* head_ = nullptr;
 };
 
 template <typename T>
@@ -47,7 +46,7 @@ AVLTree<T>::~AVLTree<T>() {
 }
 
 template <typename T>
-void AVLTree<T>::Delete(Node<T>* root) {
+void AVLTree<T>::Delete(Node* root) {
   if (root) {
     Delete(root->l);
     Delete(root->r);
@@ -56,12 +55,12 @@ void AVLTree<T>::Delete(Node<T>* root) {
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::Find(const T& elem) {
+typename AVLTree<T>::Node* AVLTree<T>::Find(const T& elem) {
   return FindT(head_, elem);
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::FindT(Node<T>* root, const T& elem) {
+typename AVLTree<T>::Node* AVLTree<T>::FindT(Node* root, const T& elem) {
   if (root == nullptr || elem == root->elem) {
     return root;
   }
@@ -77,7 +76,7 @@ void AVLTree<T>::Insert(T elem) {
 }
 
 template <typename T>
-int AVLTree<T>::Height(Node<T>* root) {
+int AVLTree<T>::Height(Node* root) {
   if (root == nullptr) {
     return 0;
   }
@@ -85,13 +84,13 @@ int AVLTree<T>::Height(Node<T>* root) {
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::GetHead() {
+typename AVLTree<T>::Node* AVLTree<T>::GetHead() {
   return head_;
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::NewNode(T elem) {
-  Node<T>* root = new Node<T>();
+typename AVLTree<T>::Node* AVLTree<T>::NewNode(T elem) {
+  Node* root = new Node();
   root->elem = elem;
   root->l = root->r = nullptr;
   root->h = 1;
@@ -99,9 +98,9 @@ Node<T>* AVLTree<T>::NewNode(T elem) {
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::RightRotate(Node<T>* ty) {
-  Node<T>* tx = ty->l;
-  Node<T>* tree_temp = tx->r;
+typename AVLTree<T>::Node* AVLTree<T>::RightRotate(Node* ty) {
+  Node* tx = ty->l;
+  Node* tree_temp = tx->r;
   tx->r = ty;
   ty->l = tree_temp;
   ty->h = max(Height(ty->l), Height(ty->r)) + 1;
@@ -110,9 +109,9 @@ Node<T>* AVLTree<T>::RightRotate(Node<T>* ty) {
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::LeftRotate(Node<T>* tx) {
-  Node<T>* ty = tx->r;
-  Node<T>* tree_temp = ty->l;
+typename AVLTree<T>::Node* AVLTree<T>::LeftRotate(Node* tx) {
+  Node* ty = tx->r;
+  Node* tree_temp = ty->l;
   ty->l = tx;
   tx->r = tree_temp;
   tx->h = max(Height(tx->l), Height(tx->r)) + 1;
@@ -121,16 +120,18 @@ Node<T>* AVLTree<T>::LeftRotate(Node<T>* tx) {
 }
 
 template <typename T>
-void Binding(AVLTree<T>& tree1, AVLTree<T>& tree2, const T& val1,
-             const T& val2) {
-  Node<T>* node1 = tree1.Find(val1);
-  Node<T>* node2 = tree2.Find(val2);
+void AVLTree<T>::Binding(AVLTree<T>& tree1, AVLTree<T>& tree2, const T& val1,
+                         const T& val2) {
+  Node* node1 = tree1.Find(val1);
+  Node* node2 = tree2.Find(val2);
   node1->couple = node2;
   node2->couple = node1;
 }
 
 template <typename T>
-Node<T>* PairSearch(AVLTree<T>& t1, AVLTree<T>& t2, const T& val) {
+typename AVLTree<T>::Node* AVLTree<T>::PairSearch(AVLTree<T>& t1,
+                                                  AVLTree<T>& t2,
+                                                  const T& val) {
   if (t1.Find(val) != nullptr) {
     return t1.Find(val)->couple;
   }
@@ -138,7 +139,7 @@ Node<T>* PairSearch(AVLTree<T>& t1, AVLTree<T>& t2, const T& val) {
 }
 
 template <typename T>
-int AVLTree<T>::GetBalance(Node<T>* root) {
+int AVLTree<T>::GetBalance(Node* root) {
   if (root == nullptr) {
     return 0;
   }
@@ -146,7 +147,8 @@ int AVLTree<T>::GetBalance(Node<T>* root) {
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::BalanceRotate(Node<T>* root, int balance, T elem) {
+typename AVLTree<T>::Node* AVLTree<T>::BalanceRotate(Node* root, int balance,
+                                                     T elem) {
   if (balance > 1 && elem < root->l->elem) {
     return RightRotate(root);
   }
@@ -165,7 +167,7 @@ Node<T>* AVLTree<T>::BalanceRotate(Node<T>* root, int balance, T elem) {
 }
 
 template <typename T>
-Node<T>* AVLTree<T>::InsertT(Node<T>* root, T elem) {
+typename AVLTree<T>::Node* AVLTree<T>::InsertT(Node* root, T elem) {
   if (root == nullptr) {
     return (NewNode(elem));
   }
@@ -181,11 +183,10 @@ Node<T>* AVLTree<T>::InsertT(Node<T>* root, T elem) {
   return BalanceRotate(root, balance, elem);
 }
 
-int main() {
+template <typename T>
+void AVLTree<T>::AvlQ(AVLTree<string>& avl1, AVLTree<string>& avl2) {
   unsigned int n;
   cin >> n;
-  AVLTree<string> avl1;
-  AVLTree<string> avl2;
   string s1;
   string s2;
   for (unsigned int i = 0; i < n; ++i) {
@@ -201,5 +202,11 @@ int main() {
     cin >> pair_key;
     cout << PairSearch(avl1, avl2, pair_key)->elem << '\n';
   }
-  return 0;
+}
+
+int main() {
+  AVLTree<string> avl1;
+  AVLTree<string> avl2;
+  AVLTree<string> res;
+  res.AvlQ(avl1, avl2);
 }
