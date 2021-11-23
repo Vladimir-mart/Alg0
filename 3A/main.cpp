@@ -13,13 +13,15 @@ class DecTree {
 
  private:
   struct Node {
-  public:
-    T x, y, label;
+   public:
+    T x;
+    T y;
+    T label;
     Node* parent;
     Node* left;
     Node* right;
   };
-  void Set(T xi, T yi, T labeli, Node s);
+  void Set(T xi, T yi, T labeli, Node& s);
   int treeSize_;
   Node* nodes_;
   Node** ordered_;
@@ -31,7 +33,7 @@ class DecTree {
 };
 
 template <typename T>
-void DecTree<T>::Set(T xi, T yi, T labeli, Node s) {
+void DecTree<T>::Set(T xi, T yi, T labeli, Node& s) {
   s.x = xi;
   s.y = -yi;
   s.label = labeli;
